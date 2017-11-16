@@ -5,14 +5,50 @@
     <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
 </head>
 <body>
+<script>
+    // Component to change to a sequential color on click.
+    AFRAME.registerComponent('question1', {
+        init: function () {
+            this.timeout = null;
+            this.el.addEventListener('mouseenter', function (evt) {
+                this.timeout = setTimeout(function () {
+                    alert('Question 1 focused for 3 sec.')
+                }, 3000)
+            });
+
+            this.el.addEventListener('mouseleave', function (evt) {
+                clearTimeout(this.timeout)
+            })
+        }
+    });
+
+    AFRAME.registerComponent('question2', {
+        init: function () {
+            this.timeout = null;
+            this.el.addEventListener('mouseenter', function (evt) {
+                this.timeout = setTimeout(function () {
+                    alert('Question 2 focused for 3 sec.')
+                }, 3000)
+            });
+
+            this.el.addEventListener('mouseleave', function (evt) {
+                clearTimeout(this.timeout)
+            })
+        }
+    });
+</script>
 <a-scene>
     <a-assets>
         <a-assets-item id="avatar" src="gltf/wiz_biz/scene.gltf"></a-assets-item>
     </a-assets>
 
-    <!--<a-image src="img/floor.jpg" position="-3 1 -2" rotation="0 45 0"></a-image>-->
+    <a-entity camera="active: true; userHeight: 1.6" look-controls wasd-controls position="0 0 0">
+        <a-cursor position="0 0 -1" fuse="true">
+        </a-cursor>
+    </a-entity>
+    </a-entity>
 
-    <a-gltf-model position="-3 1 -3" scale="0.2 0.2 0.2" rotation="0 45 0" src="#avatar"></a-gltf-model>
+    <a-gltf-model id="storyteller" position="-3 1 -3" scale="0.2 0.2 0.2" rotation="0 45 0" src="#avatar"></a-gltf-model>
 
     <a-triangle position="-1.7 2 -3" color="red" rotation="0 0 116" geometry="vertexA:0 0.8 0;vertexC:0.25 -0.5 0;vertexB:-0.25 -0.5 0"></a-triangle>
 
@@ -21,24 +57,27 @@
     </a-plane>
 
 
-    <a-entity position="2 1 -3">
+    <a-entity position="2 1 -3" question1>
         <a-entity position="0 0.4 0" geometry="primitive: plane; width: 2; height: auto" material="color: green"
                   text="color: blue; align: center; value: Question text2; width: 4; ">
         </a-entity>
     </a-entity>
 
-    <a-entity position="-1 1 -3">
+    <a-entity position="-1 1 -3" question2>
         <a-entity position="0 0.4 0" geometry="primitive: plane; width: 2; height: auto" material="color: green"
                   text="color: blue; align: center; value: Question text3; width: 4; ">
         </a-entity>
     </a-entity>
 
     <!-- floor -->
-    <a-plane rotation="-90 0 0" width="30" height="30" color="red"></a-plane>
+    <a-plane rotation="-90 0 0" width="30" height="30" color="yellow"></a-plane>
 </a-scene>
 
 <script>
-
+    var storyteller = document.querySelector('#storyteller');
+    storyteller.addEventListener('click', function (evt) {
+        console.log('e', evt)
+    })
 </script>
 </body>
 </html>
