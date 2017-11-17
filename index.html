@@ -61,6 +61,9 @@
 
         currentQuestion++;
 
+        var cameraElement = document.querySelector('#camera');
+        cameraElement.setAttribute('rotation', '0 0 0');
+
         if(currentQuestion >= quiz.length){
             alert('Quiz finished!')
         }else{
@@ -131,7 +134,7 @@
         <a-assets-item id="avatar" src="gltf/wiz_biz/scene.gltf"></a-assets-item>
     </a-assets>
 
-    <a-entity camera="active: true; userHeight: 1.6" look-controls wasd-controls position="0 0 0">
+    <a-entity id="camera" camera="active: true; userHeight: 1.6" look-controls wasd-controls position="0 0 0">
         <a-cursor position="0 0 -1" fuse="true">
         </a-cursor>
     </a-entity>
