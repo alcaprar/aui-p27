@@ -31,9 +31,9 @@
         var correctAnswer = quiz[currentQuestion].options[0].isCorrect ? 0 : 1;
         console.log('Corr', correctAnswer, 'Sel', optionSelected);
         if(optionSelected === correctAnswer){
-            alert('Well done!')
+            showSmile('happy')
         }else{
-            alert(':( try the next question.')
+            showSmile('sad')
         }
 
         currentQuestion++;
@@ -43,6 +43,34 @@
         }else{
             setQuestion()
         }
+    }
+
+    function showSmile(type) {
+        if(['sad', 'happy'].indexOf(type) === -1){
+            throw new Error('Smile can be sad or happy.')
+        }
+
+        var faceElement = document.querySelector('#face');
+
+        var happySmileElement = document.querySelector('#happy-smile');
+        var sadSmileElement = document.querySelector('#sad-smile');
+
+        faceElement.setAttribute('visible', true);
+
+        if(type === 'sad'){
+            happySmileElement.setAttribute('visible', false);
+            sadSmileElement.setAttribute('visible', true)
+        }else{
+            happySmileElement.setAttribute('visible', true);
+            sadSmileElement.setAttribute('visible', false)
+        }
+
+        // start a timeout that make the face not visible after 1 second
+
+        setTimeout(function () {
+            faceElement.setAttribute('visible', false);
+        }, 1000)
+
     }
 
     AFRAME.registerComponent('option1', {
@@ -107,8 +135,27 @@
         </a-entity>
     </a-entity>
 
+    <!-- face -->
+    <a-entity id="face" visible="false" position="0.5 1.5 -3" geometry="radius:0.33;primitive:circle" material="color:#ffff00">
+        <!-- right eye -->
+        <a-entity id="right-eye" geometry="radius:0.05;primitive:circle" material="color:black" position="0.1 0.1 0.1"></a-entity>
+
+        <!-- left eye -->
+        <a-entity id="left-eye" geometry="radius:0.05;primitive:circle" material="color:black" position="-0.1 0.1 0.1"></a-entity>
+
+        <!-- happy smile -->
+        <a-entity id="happy-smile" geometry="radius:0.1;primitive:circle; thetaStart: 180; thetaLength: 180" material="color:black" position="0 -0.1 0.1"></a-entity>
+
+        <!-- sad smile -->
+        <a-entity id="sad-smile" geometry="radius:0.1;primitive:circle; thetaStart: 0; thetaLength: 180" material="color:black" position="0 -0.1 0.1"></a-entity>
+
+        <!-- center circle to make smiles -->
+        <a-entity id="smile" geometry="radius:0.05;primitive:circle;" material="color:#ffff00" position="0 -0.1 0.1"></a-entity>
+
+    </a-entity>
+
     <!-- floor -->
-    <a-plane rotation="-90 0 0" width="30" height="30" color="yellow"></a-plane>
+    <a-plane rotation="-90 0 0" width="30" height="30" color="#33ccff"></a-plane>
 </a-scene>
 
 <script>

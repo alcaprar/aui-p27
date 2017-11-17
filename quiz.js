@@ -18,5 +18,25 @@ var quiz = [
       "option": "Option2.2 (correct)",
       "isCorrect": true
     }]
+  },
+  {
+    "question": "Question3",
+    "options": [{
+      "option": "Option3.1",
+      "isCorrect": false
+    },{
+      "option": "Option3.2 (correct)",
+      "isCorrect": true
+    }]
+  },
+  {
+    "question": "Question4",
+    "options": [{
+      "option": "Option4.1 (correct)",
+      "isCorrect": true
+    },{
+      "option": "Option4.2",
+      "isCorrect": false
+    }]
   }
 ]
