@@ -1,41 +1,51 @@
 var quiz = [
   {
-    "question": "Question1",
+    "question": "What would you wear in Lapponia?",
     "options": [{
-      "option": "Option1.1 (correct)",
+      "img": "img/dataset/clothes/gilet.png",
+      "isCorrect": false
+    },{
+      "img": "img/dataset/clothes/woolrich.png",
+      "isCorrect": true
+    }]
+  },
+  {
+    "question": "Which one is a cow?",
+    "options": [{
+      "img": "img/dataset/animals/cow.jpg",
       "isCorrect": true
     },{
-      "option": "Option1.2",
+      "img": "img/dataset/animals/dog.jpg",
       "isCorrect": false
     }]
   },
   {
     "question": "Question2",
     "options": [{
-      "option": "Option2.1",
+      "text": "Option2.1",
       "isCorrect": false
     },{
-      "option": "Option2.2 (correct)",
+      "text": "Option2.2 (correct)",
       "isCorrect": true
     }]
   },
   {
     "question": "Question3",
     "options": [{
-      "option": "Option3.1",
+      "text": "Option3.1",
       "isCorrect": false
     },{
-      "option": "Option3.2 (correct)",
+      "text": "Option3.2 (correct)",
       "isCorrect": true
     }]
   },
   {
     "question": "Question4",
     "options": [{
-      "option": "Option4.1 (correct)",
+      "text": "Option4.1 (correct)",
       "isCorrect": true
     },{
-      "option": "Option4.2",
+      "text": "Option4.2",
       "isCorrect": false
     }]
   }
