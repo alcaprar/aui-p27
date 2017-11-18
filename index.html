@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <html>
 <head>
     <title>AUI project</title>
@@ -20,10 +21,12 @@
 
         var option1TextElement = document.querySelector('#option1-text');
         var option1ImgElement = document.querySelector('#option1-img');
+        var option1gltfElement = document.querySelector('#option1-gltf');
 
         // set all not visible
         option1TextElement.setAttribute('visible', false);
         option1ImgElement.setAttribute('visible', false);
+        option1gltfElement.setAttribute('visible', false);
         if(option1.text){
             // set option1 text
             option1TextElement.setAttribute('visible', true);
@@ -32,14 +35,20 @@
             // set option1 img
             option1ImgElement.setAttribute('visible', true);
             option1ImgElement.setAttribute('material', {src: option1.img});
+        }else if (option1.gltf){
+            // set option1 gltf
+            option1gltfElement.setAttribute('visible', true);
+            option1gltfElement.setAttribute('gltf-model', {string: option1.gltf});
         }
 
         var option2TextElement = document.querySelector('#option2-text');
         var option2ImgElement = document.querySelector('#option2-img');
+        var option2gltfElement = document.querySelector('#option2-gltf');
 
         // set all not visible
         option2TextElement.setAttribute('visible', false);
         option2ImgElement.setAttribute('visible', false);
+        option2gltfElement.setAttribute('visible', false);
         if(option2.text){
             // set option1 text
             option2TextElement.setAttribute('visible', true);
@@ -48,6 +57,10 @@
             // set option2 img
             option2ImgElement.setAttribute('visible', true);
             option2ImgElement.setAttribute('material', {src: option2.img});
+        }else if (option2.gltf){
+            // set option1 gltf
+            option2gltfElement.setAttribute('visible', true);
+            option2gltfElement.setAttribute('gltf-model', {string: option2.gltf});
         }
     }
 
@@ -132,6 +145,8 @@
 <a-scene>
     <a-assets>
         <a-assets-item id="avatar" src="gltf/wiz_biz/scene.gltf"></a-assets-item>
+        <!-- <a-assets-item id="boot" src="gltf/duluth_boot/scene.gltf"></a-assets-item>
+        <a-assets-item id="shoe" src="gltf/shoes_violet/scene.gltf"></a-assets-item> -->
     </a-assets>
 
     <a-entity id="camera" camera="active: true; userHeight: 1.6" look-controls wasd-controls position="0 0 0">
@@ -140,49 +155,70 @@
     </a-entity>
     </a-entity>
 
-    <a-gltf-model id="storyteller" position="-3 1.5 -3" scale="0.2 0.3 0.2" rotation="0 45 0" src="#avatar"></a-gltf-model>
+    <!-- <a-gltf-model id="storyteller" position="-3 1.5 -3" scale="0.2 0.3 0.2" rotation="0 45 0" src="#avatar"></a-gltf-model> -->
+    <a-gltf-model id="storyteller" position="-3 1.5 -3.75" scale="0.2 0.3 0.2" rotation="0 44.977 0" src="#avatar" gltf-model="gltf/wiz_biz/scene.gltf"></a-gltf-model>
 
-    <a-triangle position="-1.7 2.5 -3" color="red" rotation="0 0 116" geometry="vertexA:0 0.8 0;vertexC:0.25 -0.5 0;vertexB:-0.25 -0.5 0"></a-triangle>
 
-    <a-plane id="question" position="0.5 3 -3" heigth="3" width="4" color="red"
-             text="color: blue; align: center; value: <QuestionText>; width: 4; ">
+    <a-box  id="question" color="#03A9F4" width="4" height="1" depth="1'" position="0 3 -4" material="" geometry="depth:0.25" text="align:center;color:#000000;font:dejavu;height:10;side:double;value:<QuestionText>;zOffset:0.25">
+        <!-- <a-animation attribute="color" from="#03A9F4" to="green" dur="3000" direction="alternative" repeat =0 begin="click" ></a-animation> -->
+
+    </a-box>
+
+    <!-- <a-triangle position="-1.7 2.5 -3" color="#03A9F4" rotation="0 0 116" geometry="vertexA:0 0.8 0;vertexC:0.25 -0.5 0;vertexB:-0.25 -0.5 0"></a-triangle> -->
+
+    <a-cone  color="#03A9F4" geometry="thetaStart:20;radiusBottom:0.25" position="-2.295 2.508 -4.17" rotation="-5.214 -8.48 119.233"></a-cone>
+    <!-- <a-plane id="question1" position="0.5 3 -3" heigth="3" width="4" color="#03A9F4"
+             text="color: black; align: center; value: <QuestionText>; width: 4; ">
     </a-plane>
+    -->
 
-    <a-entity position="-1.2 1.5 -3" option1 id="option1-text" geometry="primitive: plane; width: 2; height: auto" material="color: green"
+    <a-entity position="-1.2 1.5 -4" option1 id="option1-text" geometry="primitive: plane; width: 2; height: auto" material="color: #03A9F4"
               text="color: blue; align: center; value: <Answer1Text>; width: 4; ">
     </a-entity>
-    <a-entity position="-1.2 1 -3" option1 id="option1-img" geometry="primitive: plane; width: 2; height: 2" material="transparent: true">
+    <a-entity position="-1.2 1 -4" option1 id="option1-img" geometry="primitive: plane; width: 1.5; height: 1.5" material="transparent: true">
     </a-entity>
 
-    <a-entity position="2 1.5 -3" option2 id="option2-text" geometry="primitive: plane; width: 2; height: auto" material="color: green"
+
+    <a-entity position="-1.2 1 -4"  option1 id="option1-gltf"  gltf-model ="default">
+    </a-entity>
+
+
+
+
+    <!-- <a-gltf-model id="boot" position="-3 1.5 -3.75" scale="0.2 0.3 0.2" rotation="0 44.977 0" src="#boot" gltf-model="gltf/duluth_boot/scene.gltf"></a-gltf-model> -->
+
+    <a-entity position="1.2 1.5 -4" option2 id="option2-text" geometry="primitive: plane; width: 2; height: auto" material="color: #03A9F4"
               text="color: blue; align: center; value: <Answer1Text>; width: 4; ">
     </a-entity>
-    <a-entity position="2 1 -3" option2 id="option2-img" geometry="primitive: plane; width: 2; height: 2" material="transparent: true">
+    <a-entity position="1.2 1 -4" option2 id="option2-img" geometry="primitive: plane; width: 1.5; height: 1.5" material="transparent: true">
+    </a-entity>
+    <a-entity position="-1.2 1 -4" option2 id="option2-gltf"  gltf-model ="default" >
     </a-entity>
 
 
 
     <!-- face -->
-    <a-entity id="face" visible="false" position="0.5 1.5 -3" geometry="radius:0.33;primitive:circle" material="color:#ffff00">
+    <a-entity id="face" visible="false" position="0 2 -4" geometry="primitive:circle;radius:0.33" material="color:#ffff00">
         <!-- right eye -->
-        <a-entity id="right-eye" geometry="radius:0.05;primitive:circle" material="color:black" position="0.1 0.1 0.1"></a-entity>
+        <a-entity id="right-eye" geometry="primitive:circle;radius:0.05" material="color:black" position="0.1 0.1 0.1"></a-entity>
 
         <!-- left eye -->
-        <a-entity id="left-eye" geometry="radius:0.05;primitive:circle" material="color:black" position="-0.1 0.1 0.1"></a-entity>
+        <a-entity id="left-eye" geometry="primitive:circle;radius:0.05" material="color:black" position="-0.1 0.1 0.1"></a-entity>
 
         <!-- happy smile -->
-        <a-entity id="happy-smile" geometry="radius:0.1;primitive:circle; thetaStart: 180; thetaLength: 180" material="color:black" position="0 -0.1 0.1"></a-entity>
+        <a-entity id="happy-smile" geometry="primitive:circle;radius:0.1;thetaLength:180;thetaStart:180" material="color:black" position="0 -0.1 0.1" visible="false"></a-entity>
 
         <!-- sad smile -->
-        <a-entity id="sad-smile" geometry="radius:0.1;primitive:circle; thetaStart: 0; thetaLength: 180" material="color:black" position="0 -0.1 0.1"></a-entity>
+        <a-entity id="sad-smile" geometry="primitive:circle;radius:0.1;thetaLength:180" material="color:black" position="0 -0.1 0.1"></a-entity>
 
         <!-- center circle to make smiles -->
-        <a-entity id="smile" geometry="radius:0.05;primitive:circle;" material="color:#ffff00" position="0 -0.1 0.1"></a-entity>
+        <a-entity id="smile" geometry="primitive:circle;radius:0.05" material="color:#ffff00" position="0 -0.1 0.1"></a-entity>
 
     </a-entity>
 
+
     <!-- floor -->
-    <a-plane rotation="-90 0 0" width="30" height="30" color="#33ccff"></a-plane>
+    <a-plane rotation="-90 0 0" width="30" height="30" color="#03A9F4"></a-plane>   <!--#33ccff  -->
 </a-scene>
 
 <script>
@@ -191,3 +227,63 @@
 </script>
 </body>
 </html>
+=======
+
+
+<!--
+
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>My A-Frame Scene</title>
+    <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+</head>
+
+<body class="a-body ">
+<a-scene class="fullscreen" canvas="" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
+    <a-camera wsad-controls="" look-controls="" camera="" wasd-controls="" position="0 1.6 0">
+        <a-cursor color="#FF0000" material="" line="end:0 0 -1000" raycaster="" cursor="" geometry="">
+        </a-cursor>
+    </a-camera>
+
+    <a-box  id="box1" color="#03A9F4" width="2" height="1" depth="1'" position="-1.25 1 -4" material="" geometry="depth:0.25" text="align:center;color:#000000;font:dejavu;height:15;side:double;value:Start Game;width:5;zOffset:0.25">
+        <a-animation attribute="color" from="#03A9F4" to="green" dur="3000" direction="alternative" repeat =0 begin="click" ></a-animation>
+
+    </a-box>
+    <a-box id ="box2" color="#03A9F4" width="2" height="1" depth="1'" position="1.25 1 -4" geometry="depth:0.25" text="align:center;color:#000000;font:dejavu;height:15;side:double;value:Exit Game;width:5;zOffset:0.25" material="">
+        <a-animation attribute="color" from="#03A9F4" to="green" dur="3000" direction="alternative" repeat =0 begin="click" ></a-animation>
+
+    </a-box>
+
+
+
+    <a-entity gltf-model=""></a-entity>
+
+</a-scene>
+
+<script>
+    var box1 = document.querySelector("#box1");
+
+    box1.addEventListener("mouseenter", function () {
+        console.log('mouseneter')
+        
+    });
+
+</script>
+
+
+
+
+<!--
+<a-assets>
+    <a-asset-item id = "Avodaco"
+                  src="glTF-Sample-Models/2.0/Avocado/glTF/Avocado.gltf" crossOrigin="anonymous">
+
+    </a-asset-item>
+</a-assets>
+<a-gltf-model src="#Avocado" position="0 2 -3"></a-gltf-model>
+
+-->
+
+-->
+
+</body></html>
+>>>>>>> Stashed changes

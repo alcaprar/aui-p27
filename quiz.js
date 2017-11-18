@@ -20,12 +20,12 @@ var quiz = [
     }]
   },
   {
-    "question": "Question2",
+    "question": "You are going Hiking. Which shoes are best?",
     "options": [{
-      "text": "Option2.1",
+      "gltf": "url(gltf/shoes_violet/scene.gltf)",
       "isCorrect": false
     },{
-      "text": "Option2.2 (correct)",
+      "gltf": "url(gltf/duluth_boot/scene.gltf)",
       "isCorrect": true
     }]
   },
