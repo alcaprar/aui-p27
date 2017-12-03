@@ -67,6 +67,11 @@
 </body>
 
 <script>
+    // add a listener when vr is entered to reset camera height
+    document.querySelector('a-scene').addEventListener('enter-vr', function () {
+        document.querySelector('#camera').setAttribute('position', {x:0, y:1.6, z:0})
+    });
+
     var msg = new SpeechSynthesisUtterance('Ciao');
     msg.lang = 'it-it';
     window.speechSynthesis.speak(msg);
