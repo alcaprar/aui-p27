@@ -19,13 +19,14 @@
             </a-cursor>
         </a-camera>
 
-
+        <a-entity position="0 1.5 -1" geometry="primitive:plane;width:2;height:0.092" material="color:#eee" text="align:center;color:blue;value:Inizia!;width:2">
+        </a-entity>
 
         <a-entity id="room">
             <!--left wall-->
             <a-plane id="left-wall" position="-3 1.5 0" height="3" width="6" rotation="0 -90 0" material="color: #586972; side: back"></a-plane>
             <a-box id="left-battiscopa" position="-2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 -90 0" material="color: white; side: double"></a-box>
-            <a-log position="0 1.5 1" scale="1 0.5 1"></a-log>
+            <a-log position="0 1.5 1" scale="1 0.5 1" visible="false"></a-log>
 
             <!--right wall-->
             <a-plane id="right-wall" position="3 1.5 0" height="3" width="6" rotation="0 90 0" material="color: #586972; side: back"></a-plane>
@@ -73,13 +74,19 @@
         var oldPosition = document.querySelector('#camera').getAttribute('position');
         var text = 'Altezza ' + oldPosition.y;
         AFRAME.log(text);
-        var msg = new SpeechSynthesisUtterance(text);
-        msg.lang = 'it-it';
-        window.speechSynthesis.speak(msg);
+        readText(text)
         // override y
         oldPosition['y'] = 2;
         document.querySelector('#camera').setAttribute('user-height', oldPosition.y);
         // document.querySelector('#camera').setAttribute('position', oldPosition)
     });
+
+    function readText(text) {
+        var msg = new SpeechSynthesisUtterance(text);
+        msg.lang = 'it-it';
+        window.speechSynthesis.speak(msg);
+    }
+
+    readText('Ciao, inquadra il pulsante inizia per qualche secondo per cominciare!')
 </script>
 </html>
