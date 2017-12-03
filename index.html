@@ -2,7 +2,7 @@
 <head>
     <title>AUI project</title>
     <meta name="description" content="Quiz">
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
     <script src="quiz.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 </head>
@@ -12,10 +12,10 @@
             <a-assets-item id="tv-3d-model" src="gltf/tv/scene.gltf"></a-assets-item>
         </a-assets>
 
-        <a-entity id="camera" camera="active: true; userHeight: 1.6" look-controls wasd-controls position="0 0 0">
+        <a-camera id="camera" look-controls wasd-controls position="0 0 0">
             <a-cursor position="0 0 -1" fuse="true">
             </a-cursor>
-        </a-entity>
+        </a-camera>
 
         <a-entity id="room">
             <!--left wall-->
@@ -42,4 +42,10 @@
         </a-entity>
     </a-scene>
 </body>
+
+<script>
+    document.querySelector('a-scene').addEventListener('enter-vr', function () {
+        console.log('VR entered', document.querySelector('#camera'))
+    })
+</script>
 </html>
