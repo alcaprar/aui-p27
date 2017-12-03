@@ -77,8 +77,9 @@
         msg.lang = 'it-it';
         window.speechSynthesis.speak(msg);
         // override y
-        oldPosition['y'] = 1.6;
-        document.querySelector('#camera').setAttribute('position', oldPosition)
+        oldPosition['y'] = 2;
+        document.querySelector('#camera').setAttribute('user-height', oldPosition.y);
+        // document.querySelector('#camera').setAttribute('position', oldPosition)
     });
 </script>
 </html>
