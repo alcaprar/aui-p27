@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>AUI project</title>
+    <meta name="description" content="Quiz">
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+</head>
+<script>
+    var startingPoint = {x:-2, y:0, z:-4};
+    var transportDimension = {x:1, y:1, z:1};
+
+    var planeRoute = [{x:-1.5, y: 0.5, z:-4}, {x:-1, y:1, z:-4}, {x:-0.5, y:0.5, z:-4}, {x:0, y:0, z:-4}];
+    var planePos = 0;
+
+    AFRAME.registerComponent('plane-mover',{
+        init: function () {
+            console.log('Starting moving plane');
+            movePlane(this.el)
+        },
+        update: function () {
+        }
+    });
+
+    function movePlane(el) {
+        console.log('Moving plane to',planeRoute[planePos], el);
+        el.setAttribute('position', planeRoute[planePos]);
+        planePos++;
+        if(planePos < planeRoute.length){
+            setTimeout(function () {
+                movePlane(el)
+            }, 1000)
+        }
+    }
+</script>
+<body>
+    <a-scene>
+        <a-assets>
+            <a-assets-item id="plane" src="gltf/plane/scene.gltf"></a-assets-item>
+        </a-assets>
+
+        <a-entity id="flying-plane" visible="true">
+            <a-gltf-model id="a-plane" src="#plane" scale="0.1 0.1 0.1" position="-2 0 -4">
+                <a-animation begin="flying-up" attribute="position" from="-2 0 -4" to="0 2 -4" repeat="1" direction="normal"></a-animation>
+                <a-animation begin="flying-down" attribute="position" from="0 2 -4" to="2 0 -44" repeat="1" direction="normal"></a-animation>
+            </a-gltf-model>
+        </a-entity>
+    </a-scene>
+</body>
+
+<script>
+    setTimeout(function () {
+        var plane = document.querySelector('#a-plane');
+        plane.emit('flying-up')
+    }, 1000)
+</script>
+</html>

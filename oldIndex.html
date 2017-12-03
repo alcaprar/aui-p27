@@ -1,0 +1,194 @@
+<html>
+<head>
+    <title>AUI project</title>
+    <meta name="description" content="Quiz">
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="quiz.js"></script>
+</head>
+<body>
+
+<script>
+    var currentQuestion = 0;
+
+    function setQuestion() {
+        var questionText = quiz[currentQuestion].question;
+        var option1 = quiz[currentQuestion].options[0];
+        var option2 = quiz[currentQuestion].options[1];
+
+        // set question text
+        var questionElement = document.querySelector('#question');
+        questionElement.setAttribute('text', {value: questionText});
+
+        var option1TextElement = document.querySelector('#option1-text');
+        var option1ImgElement = document.querySelector('#option1-img');
+
+        // set all not visible
+        option1TextElement.setAttribute('visible', false);
+        option1ImgElement.setAttribute('visible', false);
+        if(option1.text){
+            // set option1 text
+            option1TextElement.setAttribute('visible', true);
+            option1TextElement.setAttribute('text', {value: option1.text});
+        }else if(option1.img){
+            // set option1 img
+            option1ImgElement.setAttribute('visible', true);
+            option1ImgElement.setAttribute('material', {src: option1.img});
+        }
+
+        var option2TextElement = document.querySelector('#option2-text');
+        var option2ImgElement = document.querySelector('#option2-img');
+
+        // set all not visible
+        option2TextElement.setAttribute('visible', false);
+        option2ImgElement.setAttribute('visible', false);
+        if(option2.text){
+            // set option1 text
+            option2TextElement.setAttribute('visible', true);
+            option2TextElement.setAttribute('text', {value: option2.text});
+        }else if(option2.img){
+            // set option2 img
+            option2ImgElement.setAttribute('visible', true);
+            option2ImgElement.setAttribute('material', {src: option2.img});
+        }
+    }
+
+    function checkAnswer(optionSelected) {
+        var correctAnswer = quiz[currentQuestion].options[0].isCorrect ? 0 : 1;
+        if(optionSelected === correctAnswer){
+            showSmile('happy')
+        }else{
+            showSmile('sad')
+        }
+
+        currentQuestion++;
+
+        var cameraElement = document.querySelector('#camera');
+        cameraElement.setAttribute('rotation', '0 0 0');
+
+        if(currentQuestion >= quiz.length){
+            alert('Quiz finished!')
+        }else{
+            setQuestion()
+        }
+    }
+
+    function showSmile(type) {
+        if(['sad', 'happy'].indexOf(type) === -1){
+            throw new Error('Smile can be sad or happy.')
+        }
+
+        var faceElement = document.querySelector('#face');
+
+        var happySmileElement = document.querySelector('#happy-smile');
+        var sadSmileElement = document.querySelector('#sad-smile');
+
+        faceElement.setAttribute('visible', true);
+
+        if(type === 'sad'){
+            happySmileElement.setAttribute('visible', false);
+            sadSmileElement.setAttribute('visible', true)
+        }else{
+            happySmileElement.setAttribute('visible', true);
+            sadSmileElement.setAttribute('visible', false)
+        }
+
+        // start a timeout that make the face not visible after 1 second
+
+        setTimeout(function () {
+            faceElement.setAttribute('visible', false);
+        }, 1000)
+
+    }
+
+    AFRAME.registerComponent('option1', {
+        init: function () {
+            this.timeout = null;
+            this.el.addEventListener('mouseenter', function (evt) {
+                this.timeout = setTimeout(function () {
+                    checkAnswer(0)
+                }, 3000)
+            });
+
+            this.el.addEventListener('mouseleave', function (evt) {
+                clearTimeout(this.timeout)
+            })
+        }
+    });
+
+    AFRAME.registerComponent('option2', {
+        init: function () {
+            this.timeout = null;
+            this.el.addEventListener('mouseenter', function (evt) {
+                this.timeout = setTimeout(function () {
+                    checkAnswer(1)
+                }, 3000)
+            });
+
+            this.el.addEventListener('mouseleave', function (evt) {
+                clearTimeout(this.timeout)
+            })
+        }
+    });
+</script>
+<a-scene>
+    <a-assets>
+        <a-assets-item id="avatar" src="gltf/wiz_biz/scene.gltf"></a-assets-item>
+    </a-assets>
+
+    <a-entity id="camera" camera="active: true; userHeight: 1.6" look-controls wasd-controls position="0 0 0">
+        <a-cursor position="0 0 -1" fuse="true">
+        </a-cursor>
+    </a-entity>
+    </a-entity>
+
+    <a-gltf-model id="storyteller" position="-3 1.5 -3" scale="0.2 0.3 0.2" rotation="0 45 0" src="#avatar"></a-gltf-model>
+
+    <a-triangle position="-1.7 2.5 -3" color="red" rotation="0 0 116" geometry="vertexA:0 0.8 0;vertexC:0.25 -0.5 0;vertexB:-0.25 -0.5 0"></a-triangle>
+
+    <a-plane id="question" position="0.5 3 -3" heigth="3" width="4" color="red"
+             text="color: blue; align: center; value: <QuestionText>; width: 4; ">
+    </a-plane>
+
+    <a-entity position="-1.2 1.5 -3" option1 id="option1-text" geometry="primitive: plane; width: 2; height: auto" material="color: green"
+              text="color: blue; align: center; value: <Answer1Text>; width: 4; ">
+    </a-entity>
+    <a-entity position="-1.2 1 -3" option1 id="option1-img" geometry="primitive: plane; width: 2; height: 2" material="transparent: true">
+    </a-entity>
+
+    <a-entity position="2 1.5 -3" option2 id="option2-text" geometry="primitive: plane; width: 2; height: auto" material="color: green"
+              text="color: blue; align: center; value: <Answer1Text>; width: 4; ">
+    </a-entity>
+    <a-entity position="2 1 -3" option2 id="option2-img" geometry="primitive: plane; width: 2; height: 2" material="transparent: true">
+    </a-entity>
+
+
+
+    <!-- face -->
+    <a-entity id="face" visible="false" position="0.5 1.5 -3" geometry="radius:0.33;primitive:circle" material="color:#ffff00">
+        <!-- right eye -->
+        <a-entity id="right-eye" geometry="radius:0.05;primitive:circle" material="color:black" position="0.1 0.1 0.1"></a-entity>
+
+        <!-- left eye -->
+        <a-entity id="left-eye" geometry="radius:0.05;primitive:circle" material="color:black" position="-0.1 0.1 0.1"></a-entity>
+
+        <!-- happy smile -->
+        <a-entity id="happy-smile" geometry="radius:0.1;primitive:circle; thetaStart: 180; thetaLength: 180" material="color:black" position="0 -0.1 0.1"></a-entity>
+
+        <!-- sad smile -->
+        <a-entity id="sad-smile" geometry="radius:0.1;primitive:circle; thetaStart: 0; thetaLength: 180" material="color:black" position="0 -0.1 0.1"></a-entity>
+
+        <!-- center circle to make smiles -->
+        <a-entity id="smile" geometry="radius:0.05;primitive:circle;" material="color:#ffff00" position="0 -0.1 0.1"></a-entity>
+
+    </a-entity>
+
+    <!-- floor -->
+    <a-plane rotation="-90 0 0" width="30" height="30" color="#33ccff"></a-plane>
+</a-scene>
+
+<script>
+    // init the quiz with the first question
+    setQuestion(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<html>
+<head>
+    <title>AUI project</title>
+    <meta name="description" content="Quiz">
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="quiz.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+</head>
+
+<script>
+    function scaleAndMove(object, dimensions, position) {
+        var bbox = new THREE.Box3().setFromObject(object);
+        var currentDimensions = {};
+        currentDimensions.y = bbox.max.y - bbox.min.y;
+        currentDimensions.z = bbox.max.z - bbox.min.z;
+        currentDimensions.x = bbox.max.x - bbox.min.x;
+        console.log('Bbox of:', object, bbox, currentDimensions);
+        object.el.setAttribute('scale', {x: dimensions.x/currentDimensions.x, y: dimensions.y/currentDimensions.y, z: dimensions.z/currentDimensions.z})
+        object.el.setAttribute('position', position);
+    }
+
+    var bodyDimensions = {x:1, y:2, z:0.5};
+    var bodyPosition = {x: 0, y: 0, z: -2};
+
+    AFRAME.registerComponent('body-resizer',{
+        dependencies: ['geometry', 'material'],
+        init: function () {
+            console.log('Body resizer.');
+            setTimeout(function () {
+                scaleAndMove(this.el.getObject3D('mesh'), bodyDimensions, bodyPosition)
+            }.bind(this), 100)
+        }
+    });
+
+    var pantsDimensions = {x:0.5, y:1, z:0.5};
+    var pantsPosition = {x:0, y: 0.1, z: -1.85};
+
+    AFRAME.registerComponent('pants-resizer',{
+        dependencies: ['geometry', 'material'],
+        init: function () {
+            console.log('Pants resizer.');
+            setTimeout(function () {
+                scaleAndMove(this.el.getObject3D('mesh'), pantsDimensions, pantsPosition)
+            }.bind(this), 100)
+        }
+    })
+</script>
+<body>
+    <a-scene>
+        <a-assets>
+            <a-assets-item id="body" src="gltf/male_body/scene.gltf"></a-assets-item>
+            <a-assets-item id="camo_pants" src="gltf/camo_pants/scene.gltf"></a-assets-item>
+        </a-assets>
+
+        <a-gltf-model id="a-body" src="#body" position="1 -1 0" body-resizer></a-gltf-model>
+        <a-gltf-model id="a-pants" src="#camo_pants" position="1 -1 0" pants-resizer></a-gltf-model>
+    </a-scene>
+</body>
+</html>
