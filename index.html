@@ -25,7 +25,7 @@
             <!--left wall-->
             <a-plane id="left-wall" position="-3 1.5 0" height="3" width="6" rotation="0 -90 0" material="color: #586972; side: back"></a-plane>
             <a-box id="left-battiscopa" position="-2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 -90 0" material="color: white; side: double"></a-box>
-            <a-log position="-1 1.5 0" scale="1 0.5 1"></a-log>
+            <a-log position="0 1.5 1" scale="1 0.5 1"></a-log>
 
             <!--right wall-->
             <a-plane id="right-wall" position="3 1.5 0" height="3" width="6" rotation="0 90 0" material="color: #586972; side: back"></a-plane>
@@ -79,9 +79,5 @@
         oldPosition['y'] = 1.6;
         document.querySelector('#camera').setAttribute('position', oldPosition)
     });
-
-    var msg = new SpeechSynthesisUtterance('Ciao');
-    msg.lang = 'it-it';
-    window.speechSynthesis.speak(msg);
 </script>
 </html>
