@@ -2,9 +2,10 @@
 <head>
     <title>AUI project</title>
     <meta name="description" content="Quiz">
-    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.7.1/aframe.js"></script>
     <script src="quiz.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 </head>
 <body>
     <a-scene>
@@ -17,6 +18,8 @@
             <a-cursor position="0 0 -1" fuse="true">
             </a-cursor>
         </a-camera>
+
+
 
         <a-entity id="room">
             <!--left wall-->
@@ -64,8 +67,8 @@
 </body>
 
 <script>
-    document.querySelector('a-scene').addEventListener('enter-vr', function () {
-        console.log('VR entered', document.querySelector('#camera'))
-    })
+    var msg = new SpeechSynthesisUtterance('Ciao');
+    msg.lang = 'it-it';
+    window.speechSynthesis.speak(msg);
 </script>
 </html>
