@@ -72,6 +72,9 @@
     document.querySelector('a-scene').addEventListener('enter-vr', function () {
         AFRAME.log('Vr entered' + document.querySelector('#camera').getAttribute('position').y);
         var oldPosition = document.querySelector('#camera').getAttribute('position');
+        var msg = new SpeechSynthesisUtterance('Altezza ' + oldPosition.y);
+        msg.lang = 'it-it';
+        window.speechSynthesis.speak(msg);
         // override y
         oldPosition['y'] = 1.6;
         document.querySelector('#camera').setAttribute('position', oldPosition)
