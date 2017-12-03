@@ -8,6 +8,10 @@
 </head>
 <body>
     <a-scene>
+        <a-assets>
+            <a-assets-item id="tv-3d-model" src="gltf/tv/scene.gltf"></a-assets-item>
+        </a-assets>
+
         <a-entity id="camera" camera="active: true; userHeight: 1.6" look-controls wasd-controls position="0 0 0">
             <a-cursor position="0 0 -1" fuse="true">
             </a-cursor>
@@ -15,17 +19,26 @@
 
         <a-entity id="room">
             <!--left wall-->
-            <a-plane id="left-wall" position="-3 1.5 0" height="3" width="6" rotation="0 -90 0" material="color: red; side: back"></a-plane>
+            <a-plane id="left-wall" position="-3 1.5 0" height="3" width="6" rotation="0 -90 0" material="color: #586972; side: back"></a-plane>
+            <a-box id="left-battiscopa" position="-2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 -90 0" material="color: white; side: double"></a-box>
+
             <!--right wall-->
-            <a-plane id="right-wall" position="3 1.5 0" height="3" width="6" rotation="0 90 0" material="color: red; side: back"></a-plane>
+            <a-plane id="right-wall" position="3 1.5 0" height="3" width="6" rotation="0 90 0" material="color: #586972; side: back"></a-plane>
+            <a-box id="right-battiscopa" position="2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 90 0" material="color: white; side: double"></a-box>
+
             <!--front wall-->
-            <a-plane id="front-wall" position="0 1.5 -3" height="3" width="6" rotation="0 0 0" material="color: green"></a-plane>
+            <a-plane id="front-wall" position="0 1.5 -3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7"></a-plane>
+            <a-box id="front-battiscopa" position="0 0.08 -2.97" height="0.16" width="6" depth="0.06" rotation="0 0 0" material="color: white; side: double"></a-box>
+            <a-gltf-model src="#tv-3d-model" position="1.8 1.5 -3" scale="0.03 0.03 0.03"></a-gltf-model>
+
             <!--back wall-->
-            <a-plane id="back-wall" position="0 1.5 3" height="3" width="6" rotation="0 0 0" material="color: green; side: back"></a-plane>
+            <a-plane id="back-wall" position="0 1.5 3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7; side: back"></a-plane>
+            <a-box id="back-battiscopa" position="0 0.08 2.97" height="0.16" width="6" depth="0.06" rotation="0 0 0" material="color: white; side: double"></a-box>
+
             <!--ceiling-->
-            <a-plane id="ceiling" position="0 3 0" height="6" width="6" rotation="-90 0 0" material="color: blue; side: back"></a-plane>
+            <a-plane id="ceiling" position="0 3 0" height="6" width="6" rotation="-90 0 0" material="color: white; side: back"></a-plane>
             <!--floor-->
-            <a-plane id="floor" height="6" width="6" rotation="-90 0 0" material="color: blue"></a-plane>
+            <a-plane id="floor" height="6" width="6" rotation="-90 0 0" material="color: #FBAD4E"></a-plane>
         </a-entity>
     </a-scene>
 </body>
