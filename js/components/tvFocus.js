@@ -1,6 +1,21 @@
 AFRAME.registerComponent('go-to-place-listener', {
     init: function () {
         var object = this;
+
+        // bind the function to this component
+        object.el.addEventListener('mouseenter', function (evt) {
+            if(object.el.getAttribute('visible') === true){
+                object.timeout = setTimeout(function () {
+                    console.log('Travelling to new place...');
+                    game.transition();
+                    //object.el.setAttribute('visible', false)
+                }, 1000)
+            }
+        });
+
+        object.el.addEventListener('mouseleave', function (evt) {
+            clearTimeout(object.timeout)
+        })
         
         // TODO
         // should be triggered when the child focus the tv

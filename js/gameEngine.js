@@ -36,6 +36,11 @@ var game = {
         // it calls the setLevel passing "top"
     },
     "levelCounter": "top",
+    "transition" : function(){
+        document.querySelector('#place').setAttribute('src', database.questions[this.questionCounter].placeToBe.src)
+        document.querySelector('#room').setAttribute('visible', false)
+        document.querySelector('#place').setAttribute('visible', true)
+    },
     "setLevel": function () {
         // it adds the clothes of level, using the counter, into the room
         
