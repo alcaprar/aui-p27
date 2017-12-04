@@ -1,18 +1,21 @@
 AFRAME.registerComponent('starting-button', {
     init: function () {
-        this.timeout = null;
+        var object = this;
+        object.timeout = null;
 
         // bind the function to this component
-        this.el.addEventListener('mouseenter', function (evt) {
-            this.timeout = setTimeout(function () {
-                console.log('Starting button pressed.');
-                game.startingButtonPressed();
-                this.el.setAttribute('visible', false)
-            }.bind(this), 3000)
-        }.bind(this));
+        object.el.addEventListener('mouseenter', function (evt) {
+            if(object.el.getAttribute('visible') === true){
+                object.timeout = setTimeout(function () {
+                    console.log('Starting button pressed.');
+                    game.startingButtonPressed();
+                    object.el.setAttribute('visible', false)
+                }, 3000)
+            }
+        });
 
-        this.el.addEventListener('mouseleave', function (evt) {
-            clearTimeout(this.timeout)
+        object.el.addEventListener('mouseleave', function (evt) {
+            clearTimeout(object.timeout)
         })
     }
 });
