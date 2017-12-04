@@ -10,7 +10,7 @@ AFRAME.registerComponent('starting-button', {
                     console.log('Starting button pressed.');
                     game.startingButtonPressed();
                     object.el.setAttribute('visible', false)
-                }, 3000)
+                }, 1000)
             }
         });
 
