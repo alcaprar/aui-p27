@@ -3,9 +3,11 @@
     <title>AUI project</title>
     <meta name="description" content="Quiz">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.7.1/aframe.js"></script>
-    <script src="quiz.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
+    <script src="./js/components/cameraFix.js"></script>
+    <script src="./js/components/startingButton.js"></script>
+    <script src="./js/database.js"></script>
+    <script src="./js/tts.js"></script>
 </head>
 <body>
     <a-scene>
@@ -14,19 +16,19 @@
             <a-assets-item id="panda" src="gltf/panda2/scene.gltf"></a-assets-item>
         </a-assets>
 
-        <a-camera id="camera" look-controls wasd-controls position="0 0 2">
+        <a-camera id="camera" look-controls wasd-controls position="0 0 2" camera-fix>
             <a-cursor position="0 0 -1" fuse="true">
             </a-cursor>
         </a-camera>
 
-        <a-entity position="0 1.5 -1" geometry="primitive:plane;width:2;height:0.092" material="color:#eee" text="align:center;color:blue;value:Inizia!;width:2">
-        </a-entity>
+        <!--starting button-->
+        <a-entity starting-button position="0 1.5 -1" geometry="primitive:plane;width:2;height:0.092" material="color:#eee" text="align:center;color:blue;value:Inizia!;width:2"></a-entity>
 
         <a-entity id="room">
             <!--left wall-->
             <a-plane id="left-wall" position="-3 1.5 0" height="3" width="6" rotation="0 -90 0" material="color: #586972; side: back"></a-plane>
             <a-box id="left-battiscopa" position="-2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 -90 0" material="color: white; side: double"></a-box>
-            <a-log position="0 1.5 1" scale="1 0.5 1" visible="false"></a-log>
+            <!--<a-log position="0 1.5 1" scale="1 0.5 1" visible="false"></a-log>-->
 
             <!--right wall-->
             <a-plane id="right-wall" position="3 1.5 0" height="3" width="6" rotation="0 90 0" material="color: #586972; side: back"></a-plane>
@@ -42,6 +44,8 @@
             <a-plane id="front-wall" position="0 1.5 -3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7"></a-plane>
             <a-box id="front-battiscopa" position="0 0.08 -2.97" height="0.16" width="6" depth="0.06" rotation="0 0 0" material="color: white; side: double"></a-box>
             <a-gltf-model src="#tv-3d-model" position="1.6 1.5 -3" scale="0.03 0.03 0.03"></a-gltf-model>
+            <!--tv screen-->
+            <a-plane id="tv-screen" width="1.7" height="0.90" position="1.60 2.08 -2.90" material="color: black; side:double"></a-plane>
 
             <!--back wall-->
             <a-plane id="back-wall" position="0 1.5 3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7; side: back"></a-plane>
@@ -67,26 +71,5 @@
         </a-entity>
     </a-scene>
 </body>
-
-<script>
-    // add a listener when vr is entered to reset camera height
-    document.querySelector('a-scene').addEventListener('enter-vr', function () {
-        var oldPosition = document.querySelector('#camera').getAttribute('position');
-        var text = 'Altezza ' + oldPosition.y;
-        AFRAME.log(text);
-        readText(text)
-        // override y
-        oldPosition['y'] = 2;
-        document.querySelector('#camera').setAttribute('user-height', oldPosition.y);
-        // document.querySelector('#camera').setAttribute('position', oldPosition)
-    });
-
-    function readText(text) {
-        var msg = new SpeechSynthesisUtterance(text);
-        msg.lang = 'it-it';
-        window.speechSynthesis.speak(msg);
-    }
-
-    readText('Ciao, inquadra il pulsante inizia per qualche secondo per cominciare!')
-</script>
+<script src="./js/gameEngine.js"></script>
 </html>
