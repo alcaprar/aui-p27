@@ -69,21 +69,22 @@ var game = {
             // start with the level of the body
             console.log('[GameEngine][transition] start with the real question');
             game.isQuestionInit = true;
-            game.setLevel();
 
             var text = database.questions[game.questionCounter].textBeforeClothes;
-            tts.readText(text);
+            tts.readText(text, function () {
+                game.setLevel();
+            });
         }
     },
     "levelCounter": "top",
     "setLevel": function () {
         var level = database.questions[game.questionCounter].clothes[game.levelCounter];
 
-        game.setOptionSrc(0, level.options[0].src);
-        game.setOptionSrc(1, level.options[1].src);
-
         var text = level.startingText;
-        tts.readText(text);
+        tts.readText(text, function () {
+            game.setOptionSrc(0, level.options[0].src);
+            game.setOptionSrc(1, level.options[1].src);
+        });
     },
     "checkLevel": function (optionId) {
         console.log('[GameEngine][checkLevel]', optionId);
