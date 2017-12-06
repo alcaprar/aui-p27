@@ -47,30 +47,43 @@ var game = {
         document.querySelector('#room').setAttribute('visible', false);
         document.querySelector('#place').setAttribute('visible', true);
 
-        // add a timeout that goes back to the room, making the place hidden and the room visible
-        setTimeout(function () {
-            document.querySelector('#room').setAttribute('visible', true);
-            document.querySelector('#place').setAttribute('visible', false);
+        if(!game.isQuestionInit){
+            var text = database.questions[this.questionCounter].placeToBe.description;
+            tts.readText(text, function () {
+                game.hidePlace()
+            })
+        }else{
+            // add a timeout that goes back to the room, making the place hidden and the room visible
+            setTimeout(function () {
+                game.hidePlace()
+            },1000)
+        }
 
-            if(!this.isQuestionInit){
-                // if it is the first time that the place is shown
-                // start with the level of the body
-                console.log('[GameEngine][transition] start with the real question');
-                this.isQuestionInit = true;
-                game.setLevel();
-            }
-        },1000)
+    },
+    "hidePlace": function hidePlace() {
+        document.querySelector('#room').setAttribute('visible', true);
+        document.querySelector('#place').setAttribute('visible', false);
 
+        if(!game.isQuestionInit){
+            // if it is the first time that the place is shown
+            // start with the level of the body
+            console.log('[GameEngine][transition] start with the real question');
+            game.isQuestionInit = true;
+            game.setLevel();
+
+            var text = database.questions[game.questionCounter].textBeforeClothes;
+            tts.readText(text);
+        }
     },
     "levelCounter": "top",
     "setLevel": function () {
         var level = database.questions[game.questionCounter].clothes[game.levelCounter];
 
-        game.setOptionSrc(0, level[0].src);
-        game.setOptionSrc(1, level[1].src);
-        // it adds the clothes of level, using the counter, into the room
-        
-        // it changes the src (setAttribute) of the boxes used for options
+        game.setOptionSrc(0, level.options[0].src);
+        game.setOptionSrc(1, level.options[1].src);
+
+        var text = level.startingText;
+        tts.readText(text);
     },
     "checkLevel": function (optionId) {
         console.log('[GameEngine][checkLevel]', optionId);
@@ -88,7 +101,7 @@ var game = {
         {dimensions: {x:1, y:1, z:1}, position: {x: 1, y: 1.3, z: -1}}
     ],
     "setOptionSrc": function (id, src) {
-        var optionEl = document.querySelector('#option' + id);
+        var optionEl = document.querySelector('#option' + id + 'gltf');
         console.log('[GameEngine][setOptionSrc]', id, src, optionEl);
         optionEl.setAttribute('src', src);
 

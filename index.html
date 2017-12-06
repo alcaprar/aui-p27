@@ -25,7 +25,7 @@
         </a-camera>
 
         <!--starting button-->
-        <a-entity starting-button position="0 1.5 -1" geometry="primitive:plane;width:2;height:0.092" material="color:#eee" text="align:center;color:blue;value:Inizia!;width:2"></a-entity>
+        <a-entity starting-button position="0 1 -1" geometry="primitive:plane;width:1;height:0.5" material="color:#ffffff; opacity: 0" text="align:center;color:blue;value:Inizia!;width:4"></a-entity>
 
         <a-entity id="room">
             <!--left wall-->
@@ -60,8 +60,13 @@
             <a-plane id="floor" height="6" width="6" rotation="-90 0 0" material="color: #FBAD4E"></a-plane>
 
             <!--options-->
-            <a-gltf-model id="option0" option-listener></a-gltf-model>
-            <a-gltf-model id="option1" option-listener></a-gltf-model>
+            <a-entity id="option0" option-listener>
+                <a-gltf-model id="option0gltf"></a-gltf-model>
+            </a-entity>
+            <a-entity  id="option1" option-listener>
+                <a-gltf-model id="option1gltf"></a-gltf-model>
+            </a-entity>
+
 
             <!--table-->
             <a-entity id="table">
