@@ -1,13 +1,21 @@
 var utils = {
-    getQueryString: function (variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
-            var pair = vars[i].split("=");
-            if(pair[0] == variable){
-                return pair[1];
-            }
+    addEntity: function (type, options) {
+        var el = document.createElement(type);
+        for(var key in options){
+            el.setAttribute(key, options[key])
         }
-        return false;        
+        document.querySelector('a-scene').appendChild(el);
+    },
+    removeEntity: function (id) {
+        var el = document.getElementById(id);
+        el.parentNode.removeChild(el)
+    },
+    showEntity: function (id){
+        var el = document.getElementById(id);
+        el.setAttribute('visible', 'true')
+    },
+    hideEntity: function (id){
+        var el = document.getElementById(id);
+        el.setAttribute('visible', 'false')
     }
-}
+};

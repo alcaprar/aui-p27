@@ -1,0 +1,91 @@
+<html>
+<head>
+    <title>AUI project</title>
+    <meta name="description" content="Quiz">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.7.1/aframe.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/components/cameraFix.js"></script>
+    <script src="./js/components/startingButton.js"></script>
+    <script src="./js/components/optionFocus.js"></script>
+    <script src="./js/components/tvFocus.js"></script>
+    <script src="./js/database.js"></script>
+    <script src="./js/tts.js"></script>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <a-assets-item id="tv-3d-model" src="gltf/tv/scene.gltf"></a-assets-item>
+            <a-assets-item id="panda" src="gltf/panda2/scene.gltf"></a-assets-item>
+        </a-assets>
+
+        <a-camera id="camera" look-controls wasd-controls position="0 0 2" camera-fix>
+            <a-cursor position="0 0 -1" fuse="true">
+            </a-cursor>
+        </a-camera>
+
+        <!--starting button-->
+        <a-entity starting-button position="0 1 -1" geometry="primitive:plane;width:1;height:0.5" material="color:#ffffff; opacity: 0" text="align:center;color:blue;value:Inizia!;width:4"></a-entity>
+
+        <a-entity id="room">
+            <!--left wall-->
+            <a-plane id="left-wall" position="-3 1.5 0" height="3" width="6" rotation="0 -90 0" material="color: #586972; side: back"></a-plane>
+            <a-box id="left-battiscopa" position="-2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 -90 0" material="color: white; side: double"></a-box>
+            <!--<a-log position="0 1.5 1" scale="1 0.5 1" visible="false"></a-log>-->
+
+            <!--right wall-->
+            <a-plane id="right-wall" position="3 1.5 0" height="3" width="6" rotation="0 90 0" material="color: #586972; side: back"></a-plane>
+            <a-box id="right-battiscopa" position="2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 90 0" material="color: white; side: double"></a-box>
+
+            <!--door-->
+            <a-entity id="door">
+                <a-box position="2.96 1 2.3" height="2" width="0.08" depth="1" material="color: #BBBBBB; side: double"></a-box>
+                <a-cylinder position="2.92 1 1.95" height="0.05" radius="0.02" rotation="0 0 90" material="color: #324149; side: double"></a-cylinder>
+                <a-sphere position="2.88 1 1.95" radius="0.03" material="color: #324149; side: double"></a-sphere>
+            </a-entity>
+            <!--front wall-->
+            <a-plane id="front-wall" position="0 1.5 -3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7"></a-plane>
+            <a-box id="front-battiscopa" position="0 0.08 -2.97" height="0.16" width="6" depth="0.06" rotation="0 0 0" material="color: white; side: double"></a-box>
+            <a-gltf-model src="#tv-3d-model" position="1.6 1.5 -3" scale="0.03 0.03 0.03"></a-gltf-model>
+            <!--tv screen-->
+            <a-plane go-to-place-listener id="tv-screen" width="1.7" height="0.90" position="1.60 2.08 -2.90" material="color: black; side:double"></a-plane>
+
+            <!--back wall-->
+            <a-plane id="back-wall" position="0 1.5 3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7; side: back"></a-plane>
+            <a-box id="back-battiscopa" position="0 0.08 2.97" height="0.16" width="6" depth="0.06" rotation="0 0 0" material="color: white; side: double"></a-box>
+
+            <!--ceiling-->
+            <a-plane id="ceiling" position="0 3 0" height="6" width="6" rotation="-90 0 0" material="color: white; side: back"></a-plane>
+            <!--floor-->
+            <a-plane id="floor" height="6" width="6" rotation="-90 0 0" material="color: #FBAD4E"></a-plane>
+
+            <!--options-->
+            <a-entity id="option0" option-listener>
+                <a-gltf-model id="option0gltf"></a-gltf-model>
+            </a-entity>
+            <a-entity  id="option1" option-listener>
+                <a-gltf-model id="option1gltf"></a-gltf-model>
+            </a-entity>
+
+
+
+
+            <!--bed-->
+            <a-entity id="bed">
+                <a-box height="0.15" depth="0.2" width="0.7" position="-2.4 0.675 2.77" material="color: white"></a-box>
+                <a-box height="0.8" depth="0.05" width="1" position="-2.4 0.8 2.875" material="color: #886051"></a-box>
+                <a-box height="0.2" depth="1.8" width="0.9" position="-2.4 0.5 1.95" material="color:#8DEAEE"></a-box>
+                <a-box height="0.4" depth="2" width="1" position="-2.4 0.2 1.9" material="color: #886051"></a-box>
+            </a-entity>
+
+            <!--storyteller-->
+            <a-gltf-model id="storyteller" src="#panda" position="2.3 0 -1.5" rotation="0 -45 0" scale="3 3 3"></a-gltf-model>
+        </a-entity>
+
+        <a-sky id="place" visible="false">
+
+        </a-sky>
+    </a-scene>
+</body>
+<script src="./js/gameEngine.js"></script>
+</html>
