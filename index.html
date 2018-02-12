@@ -8,14 +8,21 @@
     <script src="./js/utils.js"></script>
     <script src="./js/components/focus-emitter.js"></script>
     <script src="./js/main.js"></script>
+    <script src="./js/primitives/a-carpet.js"></script>
 </head>
 <body>
-<a-scene>
+<a-scene stats>
     <a-assets>
         <a-assets-item id="assistant-gltf" src="./gltf/panda/scene.gltf"></a-assets-item>
         <a-assets-item id="play-button-img" src="./img/playbutton.png"></a-assets-item>
-        <a-assets-item id="glasses" src="./gltf/glasses/scene.gltf"></a-assets-item>
-        <a-assets-item id="woolrich" src="./img/woolrich.jpg"></a-assets-item>
+        <a-assets-item id="carpet-texture" src="./img/carpet.png"></a-assets-item>
+        <a-assets-item id="airplane" src="./img/airplane.png"></a-assets-item>
+        <a-assets-item id="question" src="./img/question.png"></a-assets-item>
+
+        <a-assets-item id="woolrich" src="./img/clothes/woolrich.png"></a-assets-item>
+        <a-assets-item id="tshirtblue" src="./img/clothes/tshirtblue.png"></a-assets-item>
+
+        <a-assets-item id="city" src="./img/places/city.jpg"></a-assets-item>
     </a-assets>
 
     <a-camera id="camera" look-controls wasd-controls position="0 0 0" camera-fix>
@@ -23,9 +30,70 @@
         </a-cursor>
     </a-camera>
 
+    <a-entity id="room">
+        <!--left wall-->
+        <a-plane id="left-wall" position="-3 1.5 0" height="3" width="6" rotation="0 -90 0" material="color: #586972; side: back"></a-plane>
+        <a-box id="left-battiscopa" position="-2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 -90 0" material="color: white; side: double"></a-box>
+        <!--<a-log position="0 1.5 1" scale="1 0.5 1" visible="false"></a-log>-->
+
+        <!--right wall-->
+        <a-plane id="right-wall" position="3 1.5 0" height="3" width="6" rotation="0 90 0" material="color: #586972; side: back"></a-plane>
+        <a-box id="right-battiscopa" position="2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 90 0" material="color: white; side: double"></a-box>
+
+        <!--door-->
+        <a-entity id="door">
+            <a-box position="2.96 1 2.3" height="2" width="0.08" depth="1" material="color: #BBBBBB; side: double"></a-box>
+            <a-cylinder position="2.92 1 1.95" height="0.05" radius="0.02" rotation="0 0 90" material="color: #324149; side: double"></a-cylinder>
+            <a-sphere position="2.88 1 1.95" radius="0.03" material="color: #324149; side: double"></a-sphere>
+        </a-entity>
+        <!--front wall-->
+        <a-plane id="front-wall" position="0 1.5 -3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7"></a-plane>
+        <a-box id="front-battiscopa" position="0 0.08 -2.97" height="0.16" width="6" depth="0.06" rotation="0 0 0" material="color: white; side: double"></a-box>
+
+        <!--back wall-->
+        <a-plane id="back-wall" position="0 1.5 3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7; side: back"></a-plane>
+        <a-box id="back-battiscopa" position="0 0.08 2.97" height="0.16" width="6" depth="0.06" rotation="0 0 0" material="color: white; side: double"></a-box>
+
+        <!--ceiling-->
+        <a-plane id="ceiling" position="0 3 0" height="6" width="6" rotation="-90 0 0" material="color: white; side: back"></a-plane>
+        <!--floor-->
+        <a-plane id="floor" height="6" width="6" rotation="-90 0 0" material="color: #FBAD4E"></a-plane>
+
+
+        <!--bed-->
+        <a-entity id="bed">
+            <a-box height="0.15" depth="0.2" width="0.7" position="-2.4 0.675 2.77" material="color: white"></a-box>
+            <a-box height="0.8" depth="0.05" width="1" position="-2.4 0.8 2.875" material="color: #886051"></a-box>
+            <a-box height="0.2" depth="1.8" width="0.9" position="-2.4 0.5 1.95" material="color:#8DEAEE"></a-box>
+            <a-box height="0.4" depth="2" width="1" position="-2.4 0.2 1.9" material="color: #886051"></a-box>
+        </a-entity>
+
+        <!-- table -->
+        <a-entity id="table" position="0 0 -2" visible="false">
+            <a-box position="0 1.05 0" height="0.1" width="1.4" depth="1" material="side:double;color:#FBAD4E"></a-box>
+            <a-box position="0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+            <a-box position="-0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+
+            <a-box position="0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+            <a-box position="-0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+        </a-entity>
+
+        <!-- projector screen -->
+        <a-entity id="projector-screen">
+            <a-plane height="2.1" width="3.6" position="0 1.9 -2.99" material="color: black; side:double"></a-plane>
+            <a-plane height="2" width="3.5" position="0 1.9 -2.98" material="color: white; side:double"></a-plane>
+
+            <!-- trip text -->
+            <a-text id="trip-name-text" value="Text" color="blue" align="center" width="5" position="0 2.8 -2.97" visible="false"></a-text>
+            <a-text id="exercise-name-text" value="Text" color="blue" align="center" width="3" position="0 2.6 -2.97" visible="false"></a-text>
+            <a-image id="fly-out-button" src="#airplane" position="1.5 2.6 -2.97" scale="0.5 0.5 0.5" focus-emitter visible="false"></a-image>
+        </a-entity>
+
+    </a-entity>
+
     <!-- starting button -->
-    <a-entity id="starting-button" focus-emitter>
-        <a-image src="#play-button-img" position="0 1.8 -2" >
+    <a-entity id="starting-button" focus-emitter position="0 2.3 -2.97" scale="0.5 0.5 0.5">
+        <a-image src="#play-button-img" >
             <a-animation attribute="scale"
                          direction="alternate"
                          from="1 1 1"
@@ -36,28 +104,28 @@
     </a-entity>
 
     <!-- background music -->
-    <a-entity id="background-music" position="0 0 0" sound="src: url(./sounds/background.mp3); autoplay: true; volume: 0.1"></a-entity>
-
+    <!-- TODO remove comment to enable music-->
+    <!--<a-entity id="background-music" position="0 0 0" sound="src: url(./sounds/background.mp3); autoplay: true; volume: 0.1"></a-entity>-->
 
     <!-- virtual assistant -->
-    <a-gltf-model id="assistant" src="#assistant-gltf" position="0 0 -3.2" scale="3 3 3" visible="false"></a-gltf-model>
+    <a-gltf-model id="assistant" src="#assistant-gltf" position="1.6 0 -2" rotation="0 -45 0" scale="3 3 3" visible="false"></a-gltf-model>
 
+    <!--flying carpet... but does not look nice-->
+    <!--<a-carpet id="carpet" position="0 0 -1"></a-carpet>-->
 
-    <!--carpet-->
     <a-entity id="carpet" position="0 0 -1">
-        <a-plane  height="5" width="2" rotation="-90 0 0" material="color: #FBAD4E; side:double"></a-plane>
+        <a-image src="#carpet-texture" position="0 0.01 0" scale="4 4 4" rotation="90 0 0" material="color: #FBAD4E; side:double"></a-image>
     </a-entity>
 
-    <!-- table -->
-    <a-entity id="table" position="0 0 -2" visible="false">
-        <a-box position="0 1.05 0" height="0.1" width="1.4" depth="1" material="side:double;color:#FBAD4E"></a-box>
-        <a-box position="0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
-        <a-box position="-0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+    <!-- 360 image of the place -->
+    <a-entity id="place-viewer" visible="false">
+        <a-plane position="-1.5 1.2 -1.5" height="1.5" width="1" material="color: blue;" rotation="0 45 0">
+            <a-image id="fly-back-button" src="#airplane" position="0 0.4 0.01" scale="0.5 0.5 0.5" rotation="0 0 -90" focus-emitter></a-image>
+            <a-image id="place-info-button" src="#question" position="0 -0.4 0.01" scale="0.5 0.5 0.5" focus-emitter></a-image>
 
-        <a-box position="0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
-        <a-box position="-0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+        </a-plane>
+        <a-sky id="place-image"></a-sky>
     </a-entity>
-
 </a-scene>
 </body>
 </html>
