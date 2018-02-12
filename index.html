@@ -23,6 +23,10 @@
         <a-assets-item id="tshirtblue" src="./img/clothes/tshirtblue.png"></a-assets-item>
 
         <a-assets-item id="city" src="./img/places/city.jpg"></a-assets-item>
+
+        <a-assets-item id="background-music" src="./sounds/background.mp3"></a-assets-item>
+        <a-assets-item id="correct-answer" src="./sounds/correct-answer.mp3"></a-assets-item>
+        <a-assets-item id="wrong-answer" src="./sounds/wrong-answer.mp3"></a-assets-item>
     </a-assets>
 
     <a-camera id="camera" look-controls wasd-controls position="0 0 0" camera-fix>
@@ -105,7 +109,10 @@
 
     <!-- background music -->
     <!-- TODO remove comment to enable music-->
-    <!--<a-entity id="background-music" position="0 0 0" sound="src: url(./sounds/background.mp3); autoplay: true; volume: 0.1"></a-entity>-->
+    <!--<a-entity id="background-sound" position="0 0 0" sound="src: #background-music; autoplay: true; volume: 0.1"></a-entity>-->
+    <a-entity id="wrong-answer-sound" position="0 0 0" sound="src: #wrong-answer"></a-entity>
+    <a-entity id="correct-answer-sound" position="0 0 0" sound="src: #correct-answer"></a-entity>
+
 
     <!-- virtual assistant -->
     <a-gltf-model id="assistant" src="#assistant-gltf" position="1.6 0 -2" rotation="0 -45 0" scale="3 3 3" visible="false"></a-gltf-model>

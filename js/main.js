@@ -71,6 +71,26 @@ eventsUtils.addEventListener('fly-back-button-focused', function () {
     utils.hideEntity('place-viewer')
 });
 
+eventsUtils.addEventListener('option1-focused', function () {
+    var currentQuestion = db.trips[db.counter].questions[db.trips[db.counter].questionsCounter];
+
+    if(currentQuestion.option1.isCorrect){
+        utils.playSound('correct-answer')
+    }else{
+        utils.playSound('wrong-answer')
+    }
+});
+
+eventsUtils.addEventListener('option2-focused', function () {
+    var currentQuestion = db.trips[db.counter].questions[db.trips[db.counter].questionsCounter];
+
+    if(currentQuestion.option2.isCorrect){
+        utils.playSound('correct-answer')
+    }else{
+        utils.playSound('wrong-answer')
+    }
+});
+
 eventsUtils.addEventListener('question-answered', function () {
     // increment the counter and check if they are finished
     db.counter++;

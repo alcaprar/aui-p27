@@ -86,5 +86,9 @@ var utils = {
             }
         }
         return false;
+    },
+    playSound: function (soundName) {
+        var entity = document.getElementById(soundName + '-sound');
+        entity.components.sound.playSound();
     }
 };
