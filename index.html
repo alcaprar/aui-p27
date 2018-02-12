@@ -11,7 +11,7 @@
     <script src="./js/primitives/a-carpet.js"></script>
 </head>
 <body>
-<a-scene stats>
+<a-scene>
     <a-assets>
         <a-assets-item id="assistant-gltf" src="./gltf/panda/scene.gltf"></a-assets-item>
         <a-assets-item id="play-button-img" src="./img/playbutton.png"></a-assets-item>
@@ -27,6 +27,11 @@
         <a-assets-item id="background-music" src="./sounds/background.mp3"></a-assets-item>
         <a-assets-item id="correct-answer" src="./sounds/correct-answer.mp3"></a-assets-item>
         <a-assets-item id="wrong-answer" src="./sounds/wrong-answer.mp3"></a-assets-item>
+
+        <a-assets-item id="body-head" src="./img/body/head.png"></a-assets-item>
+        <a-assets-item id="body-petto" src="./img/body/petto.png"></a-assets-item>
+        <a-assets-item id="body-legs" src="./img/body/legs.png"></a-assets-item>
+        <a-assets-item id="body-feet" src="./img/body/feet.png"></a-assets-item>
     </a-assets>
 
     <a-camera id="camera" look-controls wasd-controls position="0 0 0" camera-fix>
@@ -81,57 +86,56 @@
             <a-box position="0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
             <a-box position="-0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
         </a-entity>
-
-        <!-- projector screen -->
-        <a-entity id="projector-screen">
-            <a-plane height="2.1" width="3.6" position="0 1.9 -2.99" material="color: black; side:double"></a-plane>
-            <a-plane height="2" width="3.5" position="0 1.9 -2.98" material="color: white; side:double"></a-plane>
-
-            <!-- trip text -->
-            <a-text id="trip-name-text" value="Text" color="blue" align="center" width="5" position="0 2.8 -2.97" visible="false"></a-text>
-            <a-text id="exercise-name-text" value="Text" color="blue" align="center" width="3" position="0 2.6 -2.97" visible="false"></a-text>
-            <a-image id="fly-out-button" src="#airplane" position="1.5 2.6 -2.97" scale="0.5 0.5 0.5" focus-emitter visible="false"></a-image>
-        </a-entity>
-
-    </a-entity>
-
-    <!-- starting button -->
-    <a-entity id="starting-button" focus-emitter position="0 2.3 -2.97" scale="0.5 0.5 0.5">
-        <a-image src="#play-button-img" >
-            <a-animation attribute="scale"
-                         direction="alternate"
-                         from="1 1 1"
-                         to="1.05 1.05 1.05"
-                         dur="1000"
-                         repeat="indefinite"></a-animation>
-        </a-image>
     </a-entity>
 
     <!-- background music -->
-    <!-- TODO remove comment to enable music-->
-    <!--<a-entity id="background-sound" position="0 0 0" sound="src: #background-music; autoplay: true; volume: 0.1"></a-entity>-->
+    <!--<a-entity id="background-sound" position="0 0 0" sound="src: #background-music; autoplay: true; volume: 0.01"></a-entity>-->
     <a-entity id="wrong-answer-sound" position="0 0 0" sound="src: #wrong-answer"></a-entity>
     <a-entity id="correct-answer-sound" position="0 0 0" sound="src: #correct-answer"></a-entity>
 
 
     <!-- virtual assistant -->
-    <a-gltf-model id="assistant" src="#assistant-gltf" position="1.6 0 -2" rotation="0 -45 0" scale="3 3 3" visible="false"></a-gltf-model>
+    <a-gltf-model id="assistant" src="#assistant-gltf" position="1.5 0 -1.4" rotation="0 -45 0" scale="3 3 3"></a-gltf-model>
 
-    <!--flying carpet... but does not look nice-->
-    <!--<a-carpet id="carpet" position="0 0 -1"></a-carpet>-->
+    <a-plane id="level-status" position="1.5 1.2 0" rotation="0 -90 0" height="1.5" width="1" color="#87CEEB">
+        <a-image src="#body-head"></a-image>
+        <a-image src="#body-petto"></a-image>
+        <a-image src="#body-legs"></a-image>
+        <a-image src="#body-feet"></a-image>
+    </a-plane>
 
-    <a-entity id="carpet" position="0 0 -1">
+    <a-entity id="carpet" position="0 0 0">
         <a-image src="#carpet-texture" position="0 0.01 0" scale="4 4 4" rotation="90 0 0" material="color: #FBAD4E; side:double"></a-image>
+        <a-circle id="fly-out-button" radius="0.4" position="0 0.02 -1.5" rotation="90 135 0" material="color: white; side: double" focus-emitter>
+            <a-image src="#airplane" position="0 0 -0.01" scale="0.5 0.5 0.5">
+                <a-animation attribute="scale"
+                             direction="alternate"
+                             from="0.5 0.5 0.5"
+                             to="0.55 0.55 0.55"
+                             dur="1000"
+                             repeat="indefinite"></a-animation>
+            </a-image>
+        </a-circle>
     </a-entity>
+
 
     <!-- 360 image of the place -->
     <a-entity id="place-viewer" visible="false">
-        <a-plane position="-1.5 1.2 -1.5" height="1.5" width="1" material="color: blue;" rotation="0 45 0">
-            <a-image id="fly-back-button" src="#airplane" position="0 0.4 0.01" scale="0.5 0.5 0.5" rotation="0 0 -90" focus-emitter></a-image>
-            <a-image id="place-info-button" src="#question" position="0 -0.4 0.01" scale="0.5 0.5 0.5" focus-emitter></a-image>
-
-        </a-plane>
         <a-sky id="place-image"></a-sky>
+    </a-entity>
+
+    <a-entity id="clothes">
+        <a-entity id="option1" position="0 1.5 -3" rotation="0 0 0"></a-entity>
+        <a-entity id="option2" position="-1.5 1.5 -1.5" rotation="0 45 0"></a-entity>
+        <a-entity id="option3" position="-3 1.5 0" rotation="0 90 0"></a-entity>
+        <a-entity id="option4" position="-1.5 1.5 1.5" rotation="0 135 0"></a-entity>
+        <a-entity id="option5" position="0 1.5 3" rotation="0 180 0"></a-entity>
+        <a-entity id="option6" position="1.5 1.5 1.5" rotation="0 225 0"></a-entity>
+        <a-entity id="option7" position="3 1.5 0" rotation="0 270 0"></a-entity>
+        <!--
+        There is the storyteller in this position.
+        <a-entity id="option8" position="1.5 1.5 -1.5" rotation="0 315 0"></a-entity>
+        -->
     </a-entity>
 </a-scene>
 </body>

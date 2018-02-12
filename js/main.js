@@ -1,107 +1,39 @@
-eventsUtils.addEventListener('starting-button-focused', function() {
-    // remove the button
-    utils.removeEntity('starting-button');
-
-    // show the assistant and the table
-    utils.showEntity('assistant');
-    // utils.showEntity('table');
-
-    // show the first trip
-    eventsUtils.trigger('show-trip')
-});
-
 /**
- * It shows the next trip.
- */
-eventsUtils.addEventListener('show-trip', function () {
-    var trip = db.trips[db.counter];
-
-    // show the plane
-    utils.showEntity('fly-out-button');
-
-    // update text of the trip
-    document.getElementById('trip-name-text').setAttribute('value', trip.place);
-    document.getElementById('exercise-name-text').setAttribute('value', trip.exerciseText);
-    utils.showEntity('trip-name-text');
-    utils.showEntity('exercise-name-text')
-});
-
-/**
- * It shows the 360 image of the place
+ * It shows the 360 image of the place and add the clothes in the environment.
  */
 eventsUtils.addEventListener('fly-out-button-focused', function () {
     // hide the room
     utils.hideEntity('room');
 
+    // hide the fly out button
+    utils.hideEntity('fly-out-button');
+
     // change the src of entity and show it
     document.getElementById('place-image').setAttribute('src', db.trips[db.counter].entity.src);
-    utils.showEntity('place-viewer')
-});
+    utils.showEntity('place-viewer');
 
-eventsUtils.addEventListener('fly-back-button-focused', function () {
-    // if first time, add the question
+    // add the clothes randomly in the environment
     var trip = db.trips[db.counter];
-    if(!trip.isShown){
-        var question = trip.questions[0];
+    for(var i = 0; i < trip.clothes.length; i++){
+        var random = utils.getRandom(0.5, 1.5);
 
-        var option1 = {
-            id: 'option1',
-            src: question.option1.entity.src,
-            position: '-1 1.8 -2.97',
-            'focus-emitter': ''
+        var elementId = 'option' + (i+1);
+        var element = document.getElementById(elementId);
+
+        // randomly change the position a bit
+        var elementPosition = element.getAttribute('position');
+        for(var key in elementPosition){
+            elementPosition[key] = elementPosition[key] * random;
+        }
+        console.log(elementPosition, '' + random);
+        element.setAttribute('position', elementPosition);
+
+        // add the option inside the element
+        var clothesElementAttributes = {
+            src: trip.clothes[i].entity.src,
+            scale: (trip.clothes[i].entity.scale) ? trip.clothes[i].entity.scale : ''
         };
-
-        var option2 = {
-            id: 'option2',
-            src: question.option2.entity.src,
-            position: '1 1.8 -2.97',
-            'focus-emitter': ''
-        };
-
-        utils.addEntityIntoEntity('projector-screen', 'a-image', option1);
-        utils.addEntityIntoEntity('projector-screen', 'a-image', option2);
-
-        trip.isShown = true
-    }
-
-    // show the room
-    utils.showEntity('room');
-
-    // hide the place
-    utils.hideEntity('place-viewer')
-});
-
-eventsUtils.addEventListener('option1-focused', function () {
-    var currentQuestion = db.trips[db.counter].questions[db.trips[db.counter].questionsCounter];
-
-    if(currentQuestion.option1.isCorrect){
-        utils.playSound('correct-answer')
-    }else{
-        utils.playSound('wrong-answer')
-    }
-});
-
-eventsUtils.addEventListener('option2-focused', function () {
-    var currentQuestion = db.trips[db.counter].questions[db.trips[db.counter].questionsCounter];
-
-    if(currentQuestion.option2.isCorrect){
-        utils.playSound('correct-answer')
-    }else{
-        utils.playSound('wrong-answer')
-    }
-});
-
-eventsUtils.addEventListener('question-answered', function () {
-    // increment the counter and check if they are finished
-    db.counter++;
-
-    if(db.counter === db.questions.length){
-        // questions finished
-    }else{
-        // remove entities of previous question
-
-
-        // add the question
-        eventsUtils.trigger('add-question')
+        var elementType = (trip.clothes[i].entity.type === 'img') ? 'a-image' : 'a-gltf-model';
+        utils.addEntityIntoEntity(elementId, elementType, clothesElementAttributes)
     }
 });

@@ -90,5 +90,16 @@ var utils = {
     playSound: function (soundName) {
         var entity = document.getElementById(soundName + '-sound');
         entity.components.sound.playSound();
+    },
+    panda: {
+        speak: function (text) {
+            
+        }
+    },
+    getRandom: function (min, max) {
+        return Math.random() * (max - min) + min;
+    },
+    getRandomInt: function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 };
