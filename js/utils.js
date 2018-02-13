@@ -19,7 +19,11 @@ var utils = {
      */
     removeEntity: function (id) {
         var el = document.getElementById(id);
-        el.parentNode.removeChild(el)
+        if(!el){
+            console.warn('[utils][removeEntity] the entity you are trying to remove does not exist.', id)
+        }else{
+            el.parentNode.removeChild(el)
+        }
     },
     /**
      * It adds the entity inside the given entity.
@@ -92,8 +96,14 @@ var utils = {
         entity.components.sound.playSound();
     },
     panda: {
-        speak: function (text) {
-            
+        speak: function (text, callback) {
+            var msg = new SpeechSynthesisUtterance(text);
+            msg.lang = 'it-it';
+            if(typeof callback !== 'undefined'){
+                msg.onend = callback
+            }
+            console.log('[utils][panda][speak]', text);
+            window.speechSynthesis.speak(msg);
         }
     },
     getRandom: function (min, max) {

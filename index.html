@@ -22,6 +22,7 @@
 
         <a-assets-item id="woolrich" src="./img/clothes/woolrich.png"></a-assets-item>
         <a-assets-item id="tshirtblue" src="./img/clothes/tshirtblue.png"></a-assets-item>
+        <a-assets-item id="costumemareuomo" src="./img/clothes/costumemareuomo.png"></a-assets-item>
 
         <a-assets-item id="pinkwinterhat" src="./gltf/pink-winter-hat/scene.gltf"></a-assets-item>
 
@@ -82,13 +83,27 @@
         </a-entity>
 
         <!-- table -->
-        <a-entity id="table" position="0 0 -2" visible="false">
+        <a-entity id="table" position="-1.5 0 -2.5">
             <a-box position="0 1.05 0" height="0.1" width="1.4" depth="1" material="side:double;color:#FBAD4E"></a-box>
             <a-box position="0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
             <a-box position="-0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
 
             <a-box position="0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
             <a-box position="-0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+        </a-entity>
+
+        <!-- wardrobe -->
+        <a-entity id="wardrobe" position="2 0 -2.6">
+            <a-box position="0 0 0" height="0.1" width="1.4" depth="0.8" material="side:double;color:#FFE799"></a-box>
+            <a-box position="0 2.55 0" height="0.1" width="1.4" depth="0.8" material="side:double;color:#FFE799"></a-box>
+            <a-box position="-0.65 1.25 0" height="2.5" width="0.1" depth="0.8" material="side:double;color:#FFE799"></a-box>
+            <a-box position="0.65 1.25 0" height="2.5" width="0.1" depth="0.8" material="side:double;color:#FFE799"></a-box>
+            <a-box position="-0.305 1.25 0.35" height="2.5" width="0.60" depth="0.1" material="side:double;color:#FBAD4E"></a-box>
+            <a-box position="0.305 1.25 0.35" height="2.5" width="0.60" depth="0.1" material="side:double;color:#FBAD4E"></a-box>
+            <a-cylinder position="-0.1 1.2 0.41" height="0.05" radius="0.02" rotation="90 0 0" material="color: #324149; side: double"></a-cylinder>
+            <a-sphere position="-0.1 1.2 0.435" radius="0.03" material="color: #324149; side: double"></a-sphere>
+            <a-cylinder position="0.1 1.2 0.41" height="0.05" radius="0.02" rotation="90 0 0" material="color: #324149; side: double"></a-cylinder>
+            <a-sphere position="0.1 1.2 0.435" radius="0.03" material="color: #324149; side: double"></a-sphere>
         </a-entity>
     </a-entity>
 
@@ -99,6 +114,8 @@
 
 
     <!-- virtual assistant -->
+    <a-entity>
+    </a-entity>
     <a-gltf-model id="assistant" src="#assistant-gltf" position="1.5 0 -1.4" rotation="0 -45 0" scale="3 3 3"></a-gltf-model>
 
     <a-plane visible="false" id="level-status" position="1.5 1.2 0" rotation="0 -90 0" height="1.5" width="1" color="#87CEEB">

@@ -1,3 +1,6 @@
+utils.panda.speak('Ciao, quando ti senti pronto guarda l \'aereo disegnato nel tappeto sotto di noi per farlo partire. Ci porterà in diversi posti!')
+
+
 /**
  * It shows the 360 image of the place and add the clothes in the environment.
  */
@@ -8,12 +11,24 @@ eventsUtils.addEventListener('fly-out-button-focused', function () {
     // hide the fly out button
     utils.hideEntity('fly-out-button');
 
+    eventsUtils.trigger('set-up-next-trip')
+});
+
+eventsUtils.addEventListener('set-up-next-trip', function () {
+    // remove all the entities inside the clothes wrapper
+    for(var j = 1; j < 7; j++){
+        utils.removeEntity('option'+j+'-src');
+    }
+
+    var trip = db.trips[db.counter];
+
     // change the src of entity and show it
-    document.getElementById('place-image').setAttribute('src', db.trips[db.counter].entity.src);
+    document.getElementById('place-image').setAttribute('src', trip.entity.src);
     utils.showEntity('place-viewer');
 
+    utils.panda.speak(trip.exerciseText);
+
     // add the clothes randomly in the environment
-    var trip = db.trips[db.counter];
     for(var i = 0; i < trip.clothes.length; i++){
         var random = utils.getRandom(0.8, 1.1);
 
@@ -55,14 +70,42 @@ eventsUtils.addEventListener('option-focused', function (evt) {
 
         utils.removeEntity(elementId+'-src');
     }else{
-        utils.playSound('wrong-answer')
+        utils.playSound('wrong-answer');
+
+        // panda reads the hint
+        utils.panda.speak(trip.clothes[optionId-1].hint)
     }
 
     // check if the game has ended
     var ended = true;
     for(var i = 0; i < trip.clothes.length; i++){
-        if(trip.clothes[i].isCorrect && typeof trip.clothes[i].selected !== 'undefined' && trip.clothes[i].selected === true){
-            alert('Finished!!')
+        if(trip.clothes[i].isCorrect && (typeof trip.clothes[i].selected === 'undefined' || trip.clothes[i].selected === false)){
+            ended = false;
         }
+    }
+    if(ended){
+        eventsUtils.trigger('trip-finished')
+    }
+});
+
+eventsUtils.addEventListener('trip-finished', function () {
+    // check if the trips have finished
+    db.counter++;
+    if(db.counter === db.trips.length){
+        // trips have finished
+        utils.panda.speak('Ben fatto. Per oggi abbiamo finito con i viaggi.');
+
+        //remove the remaining clothes
+        for(var j = 1; j < 7; j++){
+            utils.removeEntity('option'+j+'-src');
+        }
+
+        // show again the room with a summary
+        utils.showEntity('room');
+        utils.hideEntity('place-viewer')
+    }else{
+        utils.panda.speak('Ben fatto. Hai scelto tutto quello che serve. Ora andiamo in un nuovo posto!', function () {
+            eventsUtils.trigger('set-up-next-trip');
+        });
     }
 });
