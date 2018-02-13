@@ -9,20 +9,27 @@ var src = {
         src: '#tshirtblue',
         scale: ''
     },
-    mountain1: {
-        type: 'img',
-        src: '#mountain1'
+    pinkwinterhat: {
+        type: 'gltf',
+        src: '#pinkwinterhat',
+        scale: ''
     },
-    city: {
-        src: '#city'
+    places:{
+        city: {
+            src: '#city'
+        },
+        beach: {
+            src: '#beach'
+        }
     }
+
 };
 
 var db = {
     counter: 0,
     trips: [{
         place: 'Place nr 1',
-        entity: src.city,
+        entity: src.places.beach,
         exerciseText: 'Choose what would you bring with you',
         clothes: [{
             isCorrect: true,
