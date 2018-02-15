@@ -4,8 +4,8 @@ var eventsUtils = {
         var evt = new CustomEvent(eventName, {detail: eventData});
         document.dispatchEvent(evt);
     },
-    'addEventListener': function (eventName, callback) {
-        document.addEventListener(eventName, callback, {passive: true})
+    'addEventListener': function (eventName, callback, once) {
+        document.addEventListener(eventName, callback, {passive: true, once: !!(once)})
     },
     'removeEventListener': function (eventName, callback) {
         if(typeof callback !== 'undefined'){

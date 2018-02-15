@@ -98,7 +98,8 @@
         </a-entity>
 
         <!-- wardrobe -->
-        <a-entity id="wardrobe" position="2.5 0 -2.3" rotation="0 -90 0">
+        <a-entity id="wardrobe" position="2.5 0 0" rotation="0 -90 0">
+            <a-box position="0 1.25 -0.35" height="2.5" width="1.4" depth="0.1" material="side:double;color:#FFE799"></a-box>
             <a-box position="0 0 0" height="0.1" width="1.4" depth="0.8" material="side:double;color:#FFE799"></a-box>
             <a-box position="0 2.55 0" height="0.1" width="1.4" depth="0.8" material="side:double;color:#FFE799"></a-box>
             <a-box position="-0.65 1.25 0" height="2.5" width="0.1" depth="0.8" material="side:double;color:#FFE799"></a-box>
@@ -152,10 +153,6 @@
     </a-entity>
 
     <a-entity id="clothes">
-        <!--
-        I don't know why this entity is not detected by the raycaster.
-        <a-entity id="option1" position="0 1.5 -3" rotation="0 0 0" option-focus-emitter></a-entity>
-        -->
         <a-entity id="option1" position="-1.5 1.5 -1.5" rotation="0 45 0" option-focus-emitter>
             <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
                          direction="normal" attribute="scale" from="1 1 1"
@@ -204,10 +201,15 @@
                          direction="normal" attribute="scale"
                          to="1 1 1" dur="1000"></a-animation>
         </a-entity>
-        <!--
-        There is the storyteller in this position.
-        <a-entity id="option8" position="1.5 1.5 -1.5" rotation="0 315 0"></a-entity>
-        -->
+        <a-entity id="option7" position="1.5 1.5 -1.5" rotation="0 315 0">
+            <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
+                         direction="normal" attribute="scale" from="1 1 1"
+                         to="1.5 1.5 1.5" dur="1000"></a-animation>
+            <a-animation begin="mouseleave" end="mouseenter" repeat="0" fill="forwards"
+                         direction="normal" attribute="scale"
+                         to="1 1 1" dur="1000"></a-animation>
+        </a-entity>
+
     </a-entity>
 </a-scene>
 </body>
