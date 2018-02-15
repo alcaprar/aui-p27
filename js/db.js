@@ -26,6 +26,12 @@ var src = {
         },
         beach: {
             src: '#beach'
+        },
+        mountainNoSnow: {
+            src: '#mountain-no-snow'
+        },
+        mountainSnow: {
+            src: '#mountain-snow'
         }
     }
 
@@ -39,7 +45,9 @@ var db = {
     counter: 0,
     trips: [{
         place: 'Place nr 1',
-        entity: src.places.beach,
+        entity: src.places.mountainSnow,
+        temperature: '0',
+        season: 'winter',
         exerciseText: 'Siamo in una bellissima spiaggia. Scegli tutti i vestiti che ti porteresti con te.',
         clothes: [{
             isCorrect: false,
@@ -53,20 +61,38 @@ var db = {
             entity: src.clothes.costumemareouomo
         }]
     },{
-        place: 'Place nr 2',
-        entity: src.places.city,
-        exerciseText: 'Choose what would you bring with you',
+        place: 'Place nr 1',
+        entity: src.places.mountainNoSnow,
+        temperature: '10',
+        season: 'spring',
+        exerciseText: 'Siamo in una bellissima spiaggia. Scegli tutti i vestiti che ti porteresti con te.',
         clothes: [{
+            isCorrect: false,
+            entity: src.clothes.woolrich,
+            hint: 'Questo potrebbe essere adatto per un bel viaggio in montagna.Prova con un altro.'
+        }, {
             isCorrect: true,
-            entity: src.clothes.woolrich
+            entity: src.clothes.tshirtblue
         }, {
+            isCorrect: true,
+            entity: src.clothes.costumemareouomo
+        }]
+    },{
+        place: 'Place nr 1',
+        entity: src.places.beach,
+        temperature: '30',
+        season: 'summer',
+        exerciseText: 'Siamo in una bellissima spiaggia. Scegli tutti i vestiti che ti porteresti con te.',
+        clothes: [{
             isCorrect: false,
-            entity: src.clothes.tshirtblue,
-            hint: 'Questo potrebbe essere adatto per un bel viaggio al mare. Prova con un altro.'
+            entity: src.clothes.woolrich,
+            hint: 'Questo potrebbe essere adatto per un bel viaggio in montagna.Prova con un altro.'
         }, {
-            isCorrect: false,
-            entity: src.clothes.costumemareouomo,
-            hint: 'Questo potrebbe essere adatto per un bel viaggio al mare. Prova con un altro.'
+            isCorrect: true,
+            entity: src.clothes.tshirtblue
+        }, {
+            isCorrect: true,
+            entity: src.clothes.costumemareouomo
         }]
     }]
 };

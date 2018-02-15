@@ -1,5 +1,4 @@
-utils.panda.speak('Ciao, quando ti senti pronto guarda l \'aereo disegnato nel tappeto sotto di noi per farlo partire. Ci porterà in diversi posti!')
-
+var speak = false;
 
 /**
  * It shows the 360 image of the place and add the clothes in the environment.
@@ -104,8 +103,9 @@ eventsUtils.addEventListener('trip-finished', function () {
         utils.showEntity('room');
         utils.hideEntity('place-viewer')
     }else{
-        utils.panda.speak('Ben fatto. Hai scelto tutto quello che serve. Ora andiamo in un nuovo posto!', function () {
-            eventsUtils.trigger('set-up-next-trip');
+        utils.playSound('clapping');
+        utils.panda.speak('Ben fatto. Hai scelto tutto quello che serve. Inquadra di nuovo l\'aereo per viaggiare al prossimo posto.', function () {
+            utils.showEntity('fly-out-button')
         });
     }
 });

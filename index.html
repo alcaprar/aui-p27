@@ -4,15 +4,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.7.1/aframe.js"></script>
     <script src="./js/db.js"></script>
     <script src="./js/components/camera-fix.js"></script>
+    <script src="./js/components/game-init.js"></script>
     <script src="./js/events-utils.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/components/focus-emitter.js"></script>
     <script src="./js/components/option-focus-emitter.js"></script>
     <script src="./js/main.js"></script>
-    <script src="./js/primitives/a-carpet.js"></script>
 </head>
 <body>
-<a-scene>
+<a-scene game-init>
     <a-assets>
         <a-assets-item id="assistant-gltf" src="./gltf/panda/scene.gltf"></a-assets-item>
         <a-assets-item id="play-button-img" src="./img/playbutton.png"></a-assets-item>
@@ -28,15 +28,14 @@
 
         <a-assets-item id="city" src="./img/places/city.jpg"></a-assets-item>
         <a-assets-item id="beach" src="./img/places/beach.jpg"></a-assets-item>
+        <a-assets-item id="mountain-no-snow" src="./img/places/mountain-no-snow.jpeg"></a-assets-item>
+        <a-assets-item id="mountain-snow" src="./img/places/mountain-snow.jpg"></a-assets-item>
 
         <a-assets-item id="background-music" src="./sounds/background.mp3"></a-assets-item>
         <a-assets-item id="correct-answer" src="./sounds/correct-answer.mp3"></a-assets-item>
         <a-assets-item id="wrong-answer" src="./sounds/wrong-answer.mp3"></a-assets-item>
+        <a-assets-item id="clapping" src="./sounds/clapping.mp3"></a-assets-item>
 
-        <a-assets-item id="body-head" src="./img/body/head.png"></a-assets-item>
-        <a-assets-item id="body-petto" src="./img/body/petto.png"></a-assets-item>
-        <a-assets-item id="body-legs" src="./img/body/legs.png"></a-assets-item>
-        <a-assets-item id="body-feet" src="./img/body/feet.png"></a-assets-item>
     </a-assets>
 
     <a-camera id="camera" look-controls wasd-controls position="0 0 0" camera-fix>
@@ -83,7 +82,7 @@
         </a-entity>
 
         <!-- table -->
-        <a-entity id="table" position="-1.5 0 -2.5">
+        <a-entity id="table" position="-2.2 0 -2.5">
             <a-box position="0 1.05 0" height="0.1" width="1.4" depth="1" material="side:double;color:#FBAD4E"></a-box>
             <a-box position="0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
             <a-box position="-0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
@@ -99,7 +98,7 @@
         </a-entity>
 
         <!-- wardrobe -->
-        <a-entity id="wardrobe" position="2 0 -2.6">
+        <a-entity id="wardrobe" position="2.5 0 -2.3" rotation="0 -90 0">
             <a-box position="0 0 0" height="0.1" width="1.4" depth="0.8" material="side:double;color:#FFE799"></a-box>
             <a-box position="0 2.55 0" height="0.1" width="1.4" depth="0.8" material="side:double;color:#FFE799"></a-box>
             <a-box position="-0.65 1.25 0" height="2.5" width="0.1" depth="0.8" material="side:double;color:#FFE799"></a-box>
@@ -117,12 +116,13 @@
     <!--<a-entity id="background-sound" position="0 0 0" sound="src: #background-music; autoplay: true; volume: 0.01"></a-entity>-->
     <a-entity id="wrong-answer-sound" position="0 0 0" sound="src: #wrong-answer"></a-entity>
     <a-entity id="correct-answer-sound" position="0 0 0" sound="src: #correct-answer"></a-entity>
-
+    <a-entity id="clapping-sound" position="0 0 0 " sound="src: #clapping"></a-entity>
 
     <!-- virtual assistant -->
-    <a-entity>
+    <a-entity id="text-box">
+        <a-text id="text-box-value" position="0 2 -2.39" width="3" color="blue" align="center" value="Text" material="color: #eee" geometry="primitive: plane; width: auto; height: 0.5"></a-text>
     </a-entity>
-    <a-gltf-model id="assistant" src="#assistant-gltf" position="1.5 0 -1.4" rotation="0 -45 0" scale="3 3 3"></a-gltf-model>
+    <a-gltf-model id="assistant" src="#assistant-gltf" position="0 0 -2.4" scale="2.5 2.5 2.5"></a-gltf-model>
 
     <a-plane visible="false" id="level-status" position="1.5 1.2 0" rotation="0 -90 0" height="1.5" width="1" color="#87CEEB">
         <a-image src="#body-head"></a-image>

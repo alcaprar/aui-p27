@@ -93,17 +93,32 @@ var utils = {
     },
     playSound: function (soundName) {
         var entity = document.getElementById(soundName + '-sound');
-        entity.components.sound.playSound();
+        if(entity){
+            entity.components.sound.playSound();
+        }else{
+            console.warn('[utils][playSound] the sound does not exist', soundName)
+        }
     },
     panda: {
         speak: function (text, callback) {
-            var msg = new SpeechSynthesisUtterance(text);
-            msg.lang = 'it-it';
-            if(typeof callback !== 'undefined'){
-                msg.onend = callback
+            // show text in textbox
+            document.getElementById('text-box-value').setAttribute('value', text);
+
+            if(speak){
+                // if speak flag is set, speak it at loud
+                var msg = new SpeechSynthesisUtterance(text);
+                msg.lang = 'it-it';
+                if(typeof callback !== 'undefined'){
+                    msg.onend = callback
+                }
+                console.log('[utils][panda][speak]', text);
+                window.speechSynthesis.speak(msg);
+            }else{
+                // if speak is false, check if a callback has been passed
+                if(typeof callback !== 'undefined'){
+                    callback()
+                }
             }
-            console.log('[utils][panda][speak]', text);
-            window.speechSynthesis.speak(msg);
         }
     },
     getRandom: function (min, max) {
