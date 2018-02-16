@@ -72,7 +72,9 @@ eventsUtils.addEventListener('option-focused', function (evt) {
         utils.playSound('wrong-answer');
 
         // panda reads the hint
-        utils.panda.speak(trip.clothes[optionId-1].hint)
+        if(trip.clothes[optionId-1].hint){
+            utils.panda.speak(trip.clothes[optionId-1].hint)
+        }
     }
 
     // check if the game has ended
@@ -95,7 +97,7 @@ eventsUtils.addEventListener('trip-finished', function () {
         utils.panda.speak('Ben fatto. Per oggi abbiamo finito con i viaggi.');
 
         //remove the remaining clothes
-        for(var j = 1; j < 7; j++){
+        for(var j = 1; j <= 7; j++){
             utils.removeEntity('option'+j+'-src');
         }
 

@@ -44,15 +44,13 @@ var src = {
 var db = {
     counter: 0,
     trips: [{
-        place: 'Place nr 1',
         entity: src.places.mountainSnow,
         temperature: '0',
-        season: 'winter',
-        exerciseText: 'Siamo in una bellissima spiaggia. Scegli tutti i vestiti che ti porteresti con te.',
+        season: 'Inverno',
+        exerciseText: 'Scegli tutti i vestiti che ti porteresti con te.',
         clothes: [{
             isCorrect: false,
-            entity: src.clothes.woolrich,
-            hint: 'Questo potrebbe essere adatto per un bel viaggio in montagna.Prova con un altro.'
+            entity: src.clothes.woolrich
         }, {
             isCorrect: true,
             entity: src.clothes.tshirtblue
@@ -61,15 +59,12 @@ var db = {
             entity: src.clothes.costumemareouomo
         }]
     },{
-        place: 'Place nr 1',
-        entity: src.places.mountainNoSnow,
         temperature: '10',
-        season: 'spring',
-        exerciseText: 'Siamo in una bellissima spiaggia. Scegli tutti i vestiti che ti porteresti con te.',
+        season: 'Primavera',
+        exerciseText: 'Scegli tutti i vestiti che ti porteresti con te.',
         clothes: [{
             isCorrect: false,
-            entity: src.clothes.woolrich,
-            hint: 'Questo potrebbe essere adatto per un bel viaggio in montagna.Prova con un altro.'
+            entity: src.clothes.woolrich
         }, {
             isCorrect: true,
             entity: src.clothes.tshirtblue
@@ -81,12 +76,11 @@ var db = {
         place: 'Place nr 1',
         entity: src.places.beach,
         temperature: '30',
-        season: 'summer',
-        exerciseText: 'Siamo in una bellissima spiaggia. Scegli tutti i vestiti che ti porteresti con te.',
+        season: 'Estate',
+        exerciseText: 'Scegli tutti i vestiti che ti porteresti con te.',
         clothes: [{
             isCorrect: false,
-            entity: src.clothes.woolrich,
-            hint: 'Questo potrebbe essere adatto per un bel viaggio in montagna.Prova con un altro.'
+            entity: src.clothes.woolrich
         }, {
             isCorrect: true,
             entity: src.clothes.tshirtblue

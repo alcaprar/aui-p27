@@ -123,18 +123,11 @@
     <a-entity id="text-box">
         <a-text id="text-box-value" position="0 2 -2.39" width="3" color="blue" align="center" value="Text" material="color: #eee" geometry="primitive: plane; width: auto; height: 0.5"></a-text>
     </a-entity>
-    <a-gltf-model id="assistant" src="#assistant-gltf" position="0 0 -2.4" scale="2.5 2.5 2.5"></a-gltf-model>
-
-    <a-plane visible="false" id="level-status" position="1.5 1.2 0" rotation="0 -90 0" height="1.5" width="1" color="#87CEEB">
-        <a-image src="#body-head"></a-image>
-        <a-image src="#body-petto"></a-image>
-        <a-image src="#body-legs"></a-image>
-        <a-image src="#body-feet"></a-image>
-    </a-plane>
+    <a-gltf-model id="assistant" src="#assistant-gltf" position="0 0 -2" scale="2.5 2.5 2.5"></a-gltf-model>
 
     <a-entity id="carpet" position="0 0 0">
         <a-image src="#carpet-texture" position="0 0.01 0" scale="4 4 4" rotation="90 0 0" material="color: #FBAD4E; side:double"></a-image>
-        <a-circle id="fly-out-button" radius="0.4" position="0 0.02 -1.5" rotation="90 135 0" material="color: white; side: double" focus-emitter>
+        <a-circle id="fly-out-button" radius="0.4" position="0 0.02 -1.2" rotation="90 135 0" material="color: white; side: double" focus-emitter>
             <a-image src="#airplane" position="0 0 -0.01" scale="0.5 0.5 0.5">
                 <a-animation attribute="scale"
                              direction="alternate"
