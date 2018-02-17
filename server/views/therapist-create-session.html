@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ./partials/head.html %>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<!-- Navigation-->
+<% include ./partials/navigation.html %>
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1>Create session</h1>
+                <form method="post" action="/manage/session/create">
+                    <div class="form-group">
+                        <label for="place">Place</label>
+                        <select name="place" id="place" class="form-control">
+                            <option value="mountain">Mountain</option>
+                            <option value="mountain-no-snow">Mountain without snow</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exerciseText">Exercise text</label>
+                        <input type="text" class="form-control" name="exerciseText" id="exerciseText" aria-describedby="exerciseTextHelp" placeholder="Enter exercise text." required>
+                        <small id="exerciseTextHelp" class="form-text text-muted"> Ex: 'Select the clothes that you would bring with you'</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="clothes">Clothes</label>
+                        <select name="clothes" id="clothes" class="form-control">
+                            <option value="mountain">Mountain</option>
+                            <option value="mountain-no-snow">Mountain without snow</option>
+                        </select>                    </div>
+                    <div style="color: red"><%= (!!locals.error)?error:'' %></div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <% include ./partials/footer.html %>
+</div>
+</body>
+
+</html>

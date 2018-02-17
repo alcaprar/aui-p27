@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ./partials/head.html %>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<!-- Navigation-->
+<% include ./partials/navigation.html %>
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1>Create child account</h1>
+                <form method="post" action="/manage/child/create">
+                    <div class="form-group">
+                        <label for="username">Child username</label>
+                        <input type="text" class="form-control" name="username" id="username" aria-describedby="usernameHelp" placeholder="Enter username" required>
+                        <small id="usernameHelp" class="form-text text-muted">This is the username that the child will use.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Child name</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Child surname</label>
+                        <input type="text" class="form-control" name="surname" id="surname" placeholder="Enter surname" required>
+                    </div>
+                    <div style="color: red"><%= (!!locals.error)?error:'' %></div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <% include ./partials/footer.html %>
+</div>
+</body>
+
+</html>

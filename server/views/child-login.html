@@ -21,18 +21,19 @@
     <div class="card card-login mx-auto mt-5">
         <div class="card-header">Login</div>
         <div class="card-body">
-            <form >
+            <form onsubmit="return onSubmit()">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input class="form-control" id="username" name="username" placeholder="Username">
                 </div>
-                <a onclick="onClick()" class="btn btn-primary btn-block">Login</a>
+                <button type='submit' class="btn btn-primary btn-block">Login</button>
                 <script>
-                    function onClick() {
+                    function onSubmit() {
                         // similar behavior as clicking on a link
                         var childName = document.getElementById('username').value;
-                        console.log('childName', childName)
+                        console.log('childName', childName);
                         window.location.href = "/game/" + childName;
+                        return false;
                     }
                 </script>
             </form>
