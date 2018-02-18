@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var config = require('../config');
 var Child = require('../models/child');
+var Session = require('../models/session');
 
 router.get('/:childName', function (req, res) {
     var childName = req.params.childName;
@@ -10,10 +11,12 @@ router.get('/:childName', function (req, res) {
             if(err || !child || child.sessions.length === 0){
                 res.redirect('/auth/child')
             }else{
-                var lastSession = child.sessions[child.sessions.length - 1]
-                res.render('game', {
-                    lastSession: lastSession
-                })
+                Session.findOne({_id: child.sessions[child.sessions.length - 1]}, function (err, lastSession) {
+                    res.render('game', {
+                        lastSession: lastSession
+                    })
+                });
+
             }
         });
     }else{

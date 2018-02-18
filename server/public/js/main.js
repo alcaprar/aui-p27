@@ -1,5 +1,3 @@
-var speak = false;
-
 /**
  * It shows the 360 image of the place and add the clothes in the environment.
  */
@@ -22,7 +20,7 @@ eventsUtils.addEventListener('set-up-next-trip', function () {
     var trip = db.trips[db.counter];
 
     // change the src of entity and show it
-    document.getElementById('place-image').setAttribute('src', trip.entity.src);
+    document.getElementById('place-image').setAttribute('src', trip.place.src);
     utils.showEntity('place-viewer');
 
     utils.panda.speak(trip.exerciseText);

@@ -476,3 +476,9 @@ footer.sticky-footer {
     width: calc(100% - 55px);
   }
 }
+
+.table-borderless td,
+.table-borderless th,
+.table-borderless thead tr th{
+  border: 0;
+}

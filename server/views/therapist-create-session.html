@@ -11,27 +11,34 @@
             <div class="col-12">
                 <h1>Create session</h1>
                 <form method="post" action="/manage/session/create">
-                    <div class="form-group">
-                        <label for="place">Place</label>
-                        <select name="place" id="place" class="form-control">
-                            <option value="mountain">Mountain</option>
-                            <option value="mountain-no-snow">Mountain without snow</option>
-                        </select>
+                    <div class="form-group row">
+                        <label for="child" class="col-2 col-form-label">Child</label>
+                        <div class="col-10">
+                            <select name="child" id="child" class="form-control">
+                                <% for(var i=0; i< children.length; i++) {%>
+                                <option value="<%= children[i]._id %>"><%= children[i].name + ' ' + children[i].surname  %></option>
+                                <% } %>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="exerciseText">Exercise text</label>
-                        <input type="text" class="form-control" name="exerciseText" id="exerciseText" aria-describedby="exerciseTextHelp" placeholder="Enter exercise text." required>
-                        <small id="exerciseTextHelp" class="form-text text-muted"> Ex: 'Select the clothes that you would bring with you'</small>
+                    <div class="form-group row">
+                        <label for="date" class="col-2 col-form-label">Date</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" name="date" id="date" aria-describedby="dateHelp" placeholder="dd/mm/yyyy" required>
+                            <small id="dateHelp" class="form-text text-muted"> Scheduled date of the session</small>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="clothes">Clothes</label>
-                        <select name="clothes" id="clothes" class="form-control">
-                            <option value="mountain">Mountain</option>
-                            <option value="mountain-no-snow">Mountain without snow</option>
-                        </select>                    </div>
+                    <div class="form-group row">
+                        <label for="audio" class="col-2 col-form-label">Text reading</label>
+                        <div class="col-10">
+                            <input type="checkbox" class="form-control" name="audio" id="audio" aria-describedby="audioHelp">
+                            <small id="audioHelp" class="form-text text-muted"> If selected the panda will read all the text shown during the exercise.</small>
+                        </div>
+                    </div>
                     <div style="color: red"><%= (!!locals.error)?error:'' %></div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </form>            </div>
+                </form>
+            </div>
         </div>
     </div>
     <!-- /.container-fluid-->

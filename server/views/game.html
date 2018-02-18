@@ -1,3 +1,215 @@
-<script>
-    var lastSession = JSON.parse('<%- JSON.stringify(lastSession) %>');
-</script>
+<html>
+<head>
+    <title>AUI project</title>
+    <script>
+        var lastSession = JSON.parse('<%- JSON.stringify(lastSession) %>');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.7.1/aframe.js"></script>
+    <script src="/js/db.js"></script>
+    <script src="/js/components/camera-fix.js"></script>
+    <script src="/js/components/game-init.js"></script>
+    <script src="/js/events-utils.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/components/focus-emitter.js"></script>
+    <script src="/js/components/option-focus-emitter.js"></script>
+    <script src="/js/main.js"></script>
+</head>
+<body>
+<a-scene game-init>
+    <a-assets>
+        <a-assets-item id="assistant-gltf" src="/gltf/panda/scene.gltf"></a-assets-item>
+        <a-assets-item id="play-button-img" src="/img/playbutton.png"></a-assets-item>
+        <a-assets-item id="carpet-texture" src="/img/carpet.png"></a-assets-item>
+        <a-assets-item id="airplane" src="/img/airplane.png"></a-assets-item>
+        <a-assets-item id="question" src="/img/question.png"></a-assets-item>
+
+        <a-assets-item id="woolrich" src="/img/clothes/woolrich.png"></a-assets-item>
+        <a-assets-item id="tshirtblue" src="/img/clothes/tshirtblue.png"></a-assets-item>
+        <a-assets-item id="costumemareuomo" src="/img/clothes/costumemareuomo.png"></a-assets-item>
+        <a-assets-item id="bikinidonna" src="/img/clothes/bikinidonna.jpg"></a-assets-item>
+        <a-assets-item id="infradito" src="/img/clothes/infradito.png"></a-assets-item>
+
+
+        <a-assets-item id="pinkwinterhat" src="/gltf/pink-winter-hat/scene.gltf"></a-assets-item>
+
+        <a-assets-item id="city" src="/img/places/city.jpg"></a-assets-item>
+        <a-assets-item id="beach" src="/img/places/beach.jpg"></a-assets-item>
+        <a-assets-item id="mountain-no-snow" src="/img/places/mountain-no-snow.jpeg"></a-assets-item>
+        <a-assets-item id="mountain-snow" src="/img/places/mountain-snow.jpg"></a-assets-item>
+
+        <a-assets-item id="background-music" src="/sounds/background.mp3"></a-assets-item>
+        <a-assets-item id="correct-answer" src="/sounds/correct-answer.mp3"></a-assets-item>
+        <a-assets-item id="wrong-answer" src="/sounds/wrong-answer.mp3"></a-assets-item>
+        <a-assets-item id="clapping" src="/sounds/clapping.mp3"></a-assets-item>
+
+    </a-assets>
+
+    <a-camera id="camera" look-controls wasd-controls position="0 0 0" camera-fix>
+        <a-cursor position="0 0 -1" fuse="true">
+        </a-cursor>
+    </a-camera>
+
+    <a-entity id="room">
+        <!--left wall-->
+        <a-plane id="left-wall" position="-3 1.5 0" height="3" width="6" rotation="0 -90 0" material="color: #586972; side: back"></a-plane>
+        <a-box id="left-battiscopa" position="-2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 -90 0" material="color: white; side: double"></a-box>
+        <!--<a-log position="0 1.5 1" scale="1 0.5 1" visible="false"></a-log>-->
+
+        <!--right wall-->
+        <a-plane id="right-wall" position="3 1.5 0" height="3" width="6" rotation="0 90 0" material="color: #586972; side: back"></a-plane>
+        <a-box id="right-battiscopa" position="2.97 0.08 0" height="0.16" width="6" depth="0.06" rotation="0 90 0" material="color: white; side: double"></a-box>
+
+        <!--door-->
+        <a-entity id="door">
+            <a-box position="2.96 1 2.3" height="2" width="0.08" depth="1" material="color: #BBBBBB; side: double"></a-box>
+            <a-cylinder position="2.92 1 1.95" height="0.05" radius="0.02" rotation="0 0 90" material="color: #324149; side: double"></a-cylinder>
+            <a-sphere position="2.88 1 1.95" radius="0.03" material="color: #324149; side: double"></a-sphere>
+        </a-entity>
+        <!--front wall-->
+        <a-plane id="front-wall" position="0 1.5 -3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7"></a-plane>
+        <a-box id="front-battiscopa" position="0 0.08 -2.97" height="0.16" width="6" depth="0.06" rotation="0 0 0" material="color: white; side: double"></a-box>
+
+        <!--back wall-->
+        <a-plane id="back-wall" position="0 1.5 3" height="3" width="6" rotation="0 0 0" material="color: #B7B7B7; side: back"></a-plane>
+        <a-box id="back-battiscopa" position="0 0.08 2.97" height="0.16" width="6" depth="0.06" rotation="0 0 0" material="color: white; side: double"></a-box>
+
+        <!--ceiling-->
+        <a-plane id="ceiling" position="0 3 0" height="6" width="6" rotation="-90 0 0" material="color: white; side: back"></a-plane>
+        <!--floor-->
+        <a-plane id="floor" height="6" width="6" rotation="-90 0 0" material="color: #FBAD4E"></a-plane>
+
+
+        <!--bed-->
+        <a-entity id="bed">
+            <a-box height="0.15" depth="0.2" width="0.7" position="-2.4 0.675 2.77" material="color: white"></a-box>
+            <a-box height="0.8" depth="0.05" width="1" position="-2.4 0.8 2.875" material="color: #886051"></a-box>
+            <a-box height="0.2" depth="1.8" width="0.9" position="-2.4 0.5 1.95" material="color:#8DEAEE"></a-box>
+            <a-box height="0.4" depth="2" width="1" position="-2.4 0.2 1.9" material="color: #886051"></a-box>
+        </a-entity>
+
+        <!-- table -->
+        <a-entity id="table" position="-2.2 0 -2.5">
+            <a-box position="0 1.05 0" height="0.1" width="1.4" depth="1" material="side:double;color:#FBAD4E"></a-box>
+            <a-box position="0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+            <a-box position="-0.6 0.5 0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+
+            <a-box position="0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+            <a-box position="-0.6 0.5 -0.4" height="1" width="0.08" depth="0.08" material="side:double;color:#FFE799"></a-box>
+
+            <!-- book -->
+            <a-box position="0.5 1.11 -0.3" height="0.01" width="0.2" depth="0.3" material="color: blue; side:double"></a-box>
+            <a-box position="0.405 1.13 -0.3" height="0.04" width="0.01" depth="0.3" material="color: blue; side:double"></a-box>
+            <a-box position="0.5 1.13 -0.3" height="0.04" width="0.18" depth="0.28" material="color: white; side:double"></a-box>
+            <a-box position="0.5 1.15 -0.3" height="0.01" width="0.2" depth="0.3" material="color: blue; side:double"></a-box>
+        </a-entity>
+
+        <!-- wardrobe -->
+        <a-entity id="wardrobe" position="2.5 0 0" rotation="0 -90 0">
+            <a-box position="0 1.25 -0.35" height="2.5" width="1.4" depth="0.1" material="side:double;color:#FFE799"></a-box>
+            <a-box position="0 0 0" height="0.1" width="1.4" depth="0.8" material="side:double;color:#FFE799"></a-box>
+            <a-box position="0 2.55 0" height="0.1" width="1.4" depth="0.8" material="side:double;color:#FFE799"></a-box>
+            <a-box position="-0.65 1.25 0" height="2.5" width="0.1" depth="0.8" material="side:double;color:#FFE799"></a-box>
+            <a-box position="0.65 1.25 0" height="2.5" width="0.1" depth="0.8" material="side:double;color:#FFE799"></a-box>
+            <a-box position="-0.305 1.25 0.35" height="2.5" width="0.60" depth="0.1" material="side:double;color:#FBAD4E"></a-box>
+            <a-box position="0.305 1.25 0.35" height="2.5" width="0.60" depth="0.1" material="side:double;color:#FBAD4E"></a-box>
+            <a-cylinder position="-0.1 1.2 0.41" height="0.05" radius="0.02" rotation="90 0 0" material="color: #324149; side: double"></a-cylinder>
+            <a-sphere position="-0.1 1.2 0.435" radius="0.03" material="color: #324149; side: double"></a-sphere>
+            <a-cylinder position="0.1 1.2 0.41" height="0.05" radius="0.02" rotation="90 0 0" material="color: #324149; side: double"></a-cylinder>
+            <a-sphere position="0.1 1.2 0.435" radius="0.03" material="color: #324149; side: double"></a-sphere>
+        </a-entity>
+    </a-entity>
+
+    <!-- background music -->
+    <!--<a-entity id="background-sound" position="0 0 0" sound="src: #background-music; autoplay: true; volume: 0.01"></a-entity>-->
+    <a-entity id="wrong-answer-sound" position="0 0 0" sound="src: #wrong-answer"></a-entity>
+    <a-entity id="correct-answer-sound" position="0 0 0" sound="src: #correct-answer"></a-entity>
+    <a-entity id="clapping-sound" position="0 0 0 " sound="src: #clapping"></a-entity>
+
+    <!-- virtual assistant -->
+    <a-entity id="text-box">
+        <a-text id="text-box-value" position="0 2 -2.39" width="3" color="blue" align="center" value="Text" material="color: #eee" geometry="primitive: plane; width: auto; height: 0.5"></a-text>
+    </a-entity>
+    <a-gltf-model id="assistant" src="#assistant-gltf" position="0 0 -2" scale="2.5 2.5 2.5"></a-gltf-model>
+
+    <a-entity id="carpet" position="0 0 0">
+        <a-image src="#carpet-texture" position="0 0.01 0" scale="4 4 4" rotation="90 0 0" material="color: #FBAD4E; side:double"></a-image>
+        <a-circle id="fly-out-button" radius="0.4" position="0 0.02 -1.2" rotation="90 135 0" material="color: white; side: double" focus-emitter>
+            <a-image src="#airplane" position="0 0 -0.01" scale="0.5 0.5 0.5">
+                <a-animation attribute="scale"
+                             direction="alternate"
+                             from="0.5 0.5 0.5"
+                             to="0.55 0.55 0.55"
+                             dur="1000"
+                             repeat="indefinite"></a-animation>
+            </a-image>
+        </a-circle>
+    </a-entity>
+
+
+    <!-- 360 image of the place -->
+    <a-entity id="place-viewer" visible="false">
+        <a-sky id="place-image"></a-sky>
+    </a-entity>
+
+    <a-entity id="clothes">
+        <a-entity id="option1" position="-1.5 1.5 -1.5" rotation="0 45 0" option-focus-emitter>
+            <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
+                         direction="normal" attribute="scale" from="1 1 1"
+                         to="1.5 1.5 1.5" dur="1000"></a-animation>
+            <a-animation begin="mouseleave" end="mouseenter" repeat="0" fill="forwards"
+                         direction="normal" attribute="scale"
+                         to="1 1 1" dur="1000"></a-animation>
+        </a-entity>
+        <a-entity id="option2" position="-3 1.5 0" rotation="0 90 0" option-focus-emitter>
+            <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
+                         direction="normal" attribute="scale" from="1 1 1"
+                         to="1.5 1.5 1.5" dur="1000"></a-animation>
+            <a-animation begin="mouseleave" end="mouseenter" repeat="0" fill="forwards"
+                         direction="normal" attribute="scale"
+                         to="1 1 1" dur="1000"></a-animation>
+        </a-entity>
+        <a-entity id="option3" position="-1.5 1.5 1.5" rotation="0 135 0" option-focus-emitter>
+            <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
+                         direction="normal" attribute="scale" from="1 1 1"
+                         to="1.5 1.5 1.5" dur="1000"></a-animation>
+            <a-animation begin="mouseleave" end="mouseenter" repeat="0" fill="forwards"
+                         direction="normal" attribute="scale"
+                         to="1 1 1" dur="1000"></a-animation>
+        </a-entity>
+        <a-entity id="option4" position="0 1.5 3" rotation="0 180 0" option-focus-emitter>
+            <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
+                         direction="normal" attribute="scale" from="1 1 1"
+                         to="1.5 1.5 1.5" dur="1000"></a-animation>
+            <a-animation begin="mouseleave" end="mouseenter" repeat="0" fill="forwards"
+                         direction="normal" attribute="scale"
+                         to="1 1 1" dur="1000"></a-animation>
+        </a-entity>
+        <a-entity id="option5" position="1.5 1.5 1.5" rotation="0 225 0" option-focus-emitter>
+            <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
+                         direction="normal" attribute="scale" from="1 1 1"
+                         to="1.5 1.5 1.5" dur="1000"></a-animation>
+            <a-animation begin="mouseleave" end="mouseenter" repeat="0" fill="forwards"
+                         direction="normal" attribute="scale"
+                         to="1 1 1" dur="1000"></a-animation>
+        </a-entity>
+        <a-entity id="option6" position="3 1.5 0" rotation="0 270 0" option-focus-emitter>
+            <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
+                         direction="normal" attribute="scale" from="1 1 1"
+                         to="1.5 1.5 1.5" dur="1000"></a-animation>
+            <a-animation begin="mouseleave" end="mouseenter" repeat="0" fill="forwards"
+                         direction="normal" attribute="scale"
+                         to="1 1 1" dur="1000"></a-animation>
+        </a-entity>
+        <a-entity id="option7" position="1.5 1.5 -1.5" rotation="0 315 0">
+            <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
+                         direction="normal" attribute="scale" from="1 1 1"
+                         to="1.5 1.5 1.5" dur="1000"></a-animation>
+            <a-animation begin="mouseleave" end="mouseenter" repeat="0" fill="forwards"
+                         direction="normal" attribute="scale"
+                         to="1 1 1" dur="1000"></a-animation>
+        </a-entity>
+
+    </a-entity>
+</a-scene>
+</body>
+</html>
