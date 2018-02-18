@@ -1,5 +1,5 @@
 var config = {
-    port: process.env.port || 3000
+    port: process.env.PORT || 3000
 };
 
 config.mongodb = {};
