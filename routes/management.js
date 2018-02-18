@@ -81,10 +81,10 @@ router.post('/session/exercise', isLogged, function (req, res) {
             entity: (trip.clothes[i] === 'nothing') ? '' : trip.clothes[i]
         };
         if(trip['clothes'+i+'-isCorrect'] && trip['clothes'+i+'-isCorrect'] === 'on'){
-            trip.clothes[i].isCorrect = true;
+            trip.clothes[i-1].isCorrect = true;
             delete trip['clothes'+i+'-isCorrect'];
         }else{
-            trip.clothes[i].isCorrect = false;
+            trip.clothes[i-1].isCorrect = false;
         }
     }
     Session.findOne({_id: sessionId}, function(err, session){
