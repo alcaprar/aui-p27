@@ -25,7 +25,7 @@
                         <th scope="row">1</th>
                         <td><%= sessions[i].child.name + ' ' + sessions[i].child.surname%></td>
                         <td><%= sessions[i].date %></td>
-                        <td><%= (sessions[i].isDone)?'<a href=""><i class="fas fa-external-link-alt"></i></a>':'Still not completed.' %></td>
+                        <td><%- (sessions[i].results.length > 0)?'<a href="#" data-toggle="modal" data-target="#session-'+sessions[i]._id+'"><i class="fa fa-fw fa-external-link"></i></a>':'Still not completed.' %></td>
                     </tr>
                     <% } %>
                     </tbody>
@@ -37,6 +37,60 @@
     <!-- /.content-wrapper-->
     <% include ./partials/footer.html %>
 </div>
+<% for(var sessCount=0; sessCount< sessions.length; sessCount++) {%>
+    <% if(sessions[sessCount].results.length >0) { %>
+<div class="modal fade" id="session-<%= sessions[sessCount]._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><%= sessions[sessCount].child.name + ' ' + sessions[sessCount].child.surname + ' | ' + sessions[sessCount].date%></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>In this table you can see all the times that the child has done this session.</p>
+                <p>For each question you can see how many times he/she has selected a wrong answer. This might help you in focusing in this errors.</p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <% for(var quesCount=0; quesCount< sessions[sessCount].questions.length; quesCount++) {%>
+                            <th scope="col">Q<%= quesCount + 1 %> </th>
+                        <% } %>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(var resCount=0; resCount< sessions[sessCount].results.length; resCount++) {%>
+                    <tr>
+                        <th scope="row"><%= sessions[sessCount].results[resCount].date %></th>
+                        <% for(var resQuesCount=0; resQuesCount< sessions[sessCount].results[resCount].questions.length; resQuesCount++) {%>
+                            <td>
+                            <% var questionPerfect = true %>
+                            <% for(var itemResQuesCount=0; itemResQuesCount< sessions[sessCount].results[resCount].questions[resQuesCount].items.length; itemResQuesCount++) {%>
+                                <% if(sessions[sessCount].results[resCount].questions[resQuesCount].items[itemResQuesCount].wrongAnswersCounter) {%>
+                                <% questionPerfect = false%>
+                                    <span title="<%= sessions[sessCount].results[resCount].questions[resQuesCount].items[itemResQuesCount].entity.src %>">IT<%= itemResQuesCount+1 %>: <span style="color: red"><%= sessions[sessCount].results[resCount].questions[resQuesCount].items[itemResQuesCount].wrongAnswersCounter %></span></span>
+                                <% } %>
+                            <% } %>
+                            <% if(questionPerfect){ %>
+                                <span style="color: green">0 Errors</span>
+                            <% } %>
+                            </td>
+                        <% } %>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <% } %>
+<% } %>
 </body>
 
 </html>

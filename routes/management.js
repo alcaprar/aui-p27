@@ -108,6 +108,47 @@ router.get('/session/details', isLogged, function (req, res) {
         });
 });
 
+router.post('/session/results', function(req, res){
+    console.log('Session results', req.body);
+    var childUsername = req.body.childUsername;
+    var questions = req.body.questions;
+
+    Child.findOne({username: childUsername}, function(err, child){
+        if(!err && child){
+            var lastSessionId = child.sessions[child.sessions.length - 1];
+            Session.findOne({_id: lastSessionId}, function(err, session){
+                if(!err && session){
+                    var currentDate = new Date();
+
+                    var date = currentDate.getDate();
+                    var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+                    var year = currentDate.getFullYear();
+                    var hours = currentDate.getHours();
+                    var minutes = currentDate.getMinutes();
+
+                    var dateString = date + "/" +(month + 1) + "/" + year + " " + hours + ":" + minutes;
+                    session.results.push({
+                        questions: questions,
+                        date: dateString
+                    });
+                    session.save(function(err){
+                        if(!err){
+                            res.send('ok')
+                        }else{
+                            res.status(400).send('error while storing session');
+                        }
+
+                    })
+                }else{
+                    res.status(400).send('session does not exits');
+                }
+            })
+        }else{
+            res.status(400).send('child does not exits');
+        }
+    })
+});
+
 /**
  * Check the request if the user is authenticated.
  * Return an error message if not, otherwise keep going :)

@@ -3,8 +3,10 @@
     <title>AUI project</title>
     <script>
         var lastSession = JSON.parse('<%- JSON.stringify(lastSession) %>');
+        var childUsername = '<%- childUsername%>';
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.7.1/aframe.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/js/db.js"></script>
     <script src="/js/components/camera-fix.js"></script>
     <script src="/js/components/game-init.js"></script>
@@ -152,7 +154,7 @@
     </a-entity>
 
     <a-entity id="clothes">
-        <a-entity id="option1" position="-1.5 1.5 -1.5" rotation="0 45 0" option-focus-emitter>
+        <a-entity id="option1" position="-2 2 -2" rotation="0 45 0" option-focus-emitter>
             <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
                          direction="normal" attribute="scale" from="1 1 1"
                          to="1.5 1.5 1.5" dur="1000"></a-animation>
@@ -160,7 +162,7 @@
                          direction="normal" attribute="scale"
                          to="1 1 1" dur="1000"></a-animation>
         </a-entity>
-        <a-entity id="option2" position="-3 1.5 0" rotation="0 90 0" option-focus-emitter>
+        <a-entity id="option2" position="-4 2 0" rotation="0 90 0" option-focus-emitter>
             <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
                          direction="normal" attribute="scale" from="1 1 1"
                          to="1.5 1.5 1.5" dur="1000"></a-animation>
@@ -168,7 +170,7 @@
                          direction="normal" attribute="scale"
                          to="1 1 1" dur="1000"></a-animation>
         </a-entity>
-        <a-entity id="option3" position="-1.5 1.5 1.5" rotation="0 135 0" option-focus-emitter>
+        <a-entity id="option3" position="-2 2 2" rotation="0 135 0" option-focus-emitter>
             <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
                          direction="normal" attribute="scale" from="1 1 1"
                          to="1.5 1.5 1.5" dur="1000"></a-animation>
@@ -176,7 +178,7 @@
                          direction="normal" attribute="scale"
                          to="1 1 1" dur="1000"></a-animation>
         </a-entity>
-        <a-entity id="option4" position="0 1.5 3" rotation="0 180 0" option-focus-emitter>
+        <a-entity id="option4" position="0 2 4" rotation="0 180 0" option-focus-emitter>
             <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
                          direction="normal" attribute="scale" from="1 1 1"
                          to="1.5 1.5 1.5" dur="1000"></a-animation>
@@ -184,7 +186,7 @@
                          direction="normal" attribute="scale"
                          to="1 1 1" dur="1000"></a-animation>
         </a-entity>
-        <a-entity id="option5" position="1.5 1.5 1.5" rotation="0 225 0" option-focus-emitter>
+        <a-entity id="option5" position="2 2 2" rotation="0 225 0" option-focus-emitter>
             <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
                          direction="normal" attribute="scale" from="1 1 1"
                          to="1.5 1.5 1.5" dur="1000"></a-animation>
@@ -192,7 +194,7 @@
                          direction="normal" attribute="scale"
                          to="1 1 1" dur="1000"></a-animation>
         </a-entity>
-        <a-entity id="option6" position="3 1.5 0" rotation="0 270 0" option-focus-emitter>
+        <a-entity id="option6" position="4 2 0" rotation="0 270 0" option-focus-emitter>
             <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
                          direction="normal" attribute="scale" from="1 1 1"
                          to="1.5 1.5 1.5" dur="1000"></a-animation>
@@ -200,7 +202,7 @@
                          direction="normal" attribute="scale"
                          to="1 1 1" dur="1000"></a-animation>
         </a-entity>
-        <a-entity id="option7" position="1.5 1.5 -1.5" rotation="0 315 0">
+        <a-entity id="option7" position="2 2 -2" rotation="0 315 0">
             <a-animation begin="mouseenter" end="mouseleave" fill="forwards" repeat="0"
                          direction="normal" attribute="scale" from="1 1 1"
                          to="1.5 1.5 1.5" dur="1000"></a-animation>

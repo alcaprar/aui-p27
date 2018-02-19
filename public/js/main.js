@@ -61,6 +61,8 @@ eventsUtils.addEventListener('option-focused', function (evt) {
     var question = db.questions[db.counter];
 
     if(question.items[optionId-1].isCorrect){
+        // set as selected
+        question.items[optionId-1].selected = true;
 
         // if correct play the sound and remove the entity
         utils.playSound('correct-answer');
@@ -96,6 +98,15 @@ eventsUtils.addEventListener('question-finished', function () {
     // check if the questions have finished
     db.counter++;
     if(db.counter === db.questions.length){
+        utils.playSound('clapping');
+        $.ajax('/manage/session/results', {
+            method: 'POST',
+            data: db,
+            success: function (res) {
+                console.log('Session stored', res)
+            }
+        });
+
         // questions have finished
         utils.panda.speak('Ben fatto. Per oggi abbiamo finito con i viaggi.');
 
@@ -112,6 +123,6 @@ eventsUtils.addEventListener('question-finished', function () {
         utils.panda.speak('Ben fatto. Hai scelto tutto quello che serve. Inquadra di nuovo l\'aereo per viaggiare al prossimo posto.', function () {
             utils.showEntity('fly-out-button')
         });
-        console.log('Finished', db)
+        console.log('Finished', db);
     }
 });

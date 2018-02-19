@@ -6,7 +6,7 @@ var sessionSchema = mongoose.Schema({
     therapist: {type: mongoose.Schema.Types.ObjectId, ref: 'Therapist'},
     audio: {type: Boolean, default: false},
     questions: [mongoose.Schema.Types.Mixed],
-    isDone: {type: Boolean, default: false}
+    results: [mongoose.Schema.Types.Mixed]
 });
 
 var sessionModel = mongoose.model('Session', sessionSchema);

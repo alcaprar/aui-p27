@@ -48,6 +48,7 @@ var speak = lastSession.audio;
 
 var db = {
     counter: 0,
+    childUsername: childUsername,
     questions: []
 };
 
