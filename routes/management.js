@@ -46,8 +46,9 @@ router.post('/session/create', isLogged, function (req, res) {
     console.log('Session create', req.body);
     var session = new Session({
         child: req.body.child,
+        therapist: req.user._id,
         date: req.body.date,
-        audio: (req.body.audio && req.body.audio === '') ? true : false
+        audio: (req.body.audio && req.body.audio === 'on') ? true : false
     });
     session.save(function(err){
         if(!err){
@@ -75,20 +76,20 @@ router.post('/session/exercise', isLogged, function (req, res) {
     console.log('Create exercise', req.body);
     var sessionId = req.body.session;
     delete req.body.session;
-    var trip = req.body;
-    for(var i = 0; i < trip.clothes.length; i++){
-        trip.clothes[i] = {
-            entity: (trip.clothes[i] === 'nothing') ? '' : trip.clothes[i]
+    var question = req.body;
+    for(var i = 0; i < question.items.length; i++){
+        question.items[i] = {
+            entity: (question.items[i] === 'nothing') ? '' : question.items[i]
         };
-        if(trip['clothes'+i+'-isCorrect'] && trip['clothes'+i+'-isCorrect'] === 'on'){
-            trip.clothes[i-1].isCorrect = true;
-            delete trip['clothes'+i+'-isCorrect'];
+        if(question['item'+i+'-isCorrect'] && question['item'+i+'-isCorrect'] === 'on'){
+            question.items[i].isCorrect = true;
+            delete question['item'+i+'-isCorrect'];
         }else{
-            trip.clothes[i-1].isCorrect = false;
+            question.items[i].isCorrect = false;
         }
     }
     Session.findOne({_id: sessionId}, function(err, session){
-        session.trips.push(trip);
+        session.questions.push(question);
         session.save(function(err){
             res.redirect('/manage/session/exercise')
         })
@@ -96,8 +97,15 @@ router.post('/session/exercise', isLogged, function (req, res) {
 
 });
 
-router.get('/session/results', isLogged, function (req, res) {
-    res.render('therapist-see-results')
+router.get('/session/details', isLogged, function (req, res) {
+    Session.find({therapist: req.user._id})
+        .populate('child')
+        .exec(function (err, sessions) {
+            console.log('/manage/session/details', err, sessions);
+            res.render('therapist-sessions-details', {
+                sessions: sessions
+            })
+        });
 });
 
 /**

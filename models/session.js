@@ -3,8 +3,9 @@ var mongoose = require('mongoose');
 var sessionSchema = mongoose.Schema({
     date: {type: String},
     child: {type: mongoose.Schema.Types.ObjectId, ref: 'Child'},
+    therapist: {type: mongoose.Schema.Types.ObjectId, ref: 'Therapist'},
     audio: {type: Boolean, default: false},
-    trips: [mongoose.Schema.Types.Mixed],
+    questions: [mongoose.Schema.Types.Mixed],
     isDone: {type: Boolean, default: false}
 });
 

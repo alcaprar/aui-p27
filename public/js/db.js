@@ -1,5 +1,5 @@
 var src = {
-    clothes: {
+    items: {
         woolrich: {
             type: 'img',
             src: '#woolrich',
@@ -48,17 +48,17 @@ var speak = lastSession.audio;
 
 var db = {
     counter: 0,
-    trips: []
+    questions: []
 };
 
-for(var i = 0; i < lastSession.trips.length; i++){
-    var trip = lastSession.trips[i];
-    trip.place = src.places[trip.place];
+for(var i = 0; i < lastSession.questions.length; i++){
+    var question = lastSession.questions[i];
+    question.place = src.places[question.place];
 
-    for(var j = 0; j < trip.clothes.length; j++){
-        if(trip.clothes[j].entity !== ''){
-            trip.clothes[j].entity = src.clothes[trip.clothes[j].entity]
+    for(var j = 0; j < question.items.length; j++){
+        if(question.items[j].entity !== ''){
+            question.items[j].entity = src.items[question.items[j].entity]
         }
     }
-    db.trips.push(trip)
+    db.questions.push(question)
 }

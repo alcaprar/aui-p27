@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ./partials/head.html %>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<!-- Navigation-->
+<% include ./partials/navigation.html %>
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1>Sessions details</h1>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Child name</th>
+                        <th scope="col">Scheduled date</th>
+                        <th scope="col">Results</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(var i=0; i< sessions.length; i++) {%>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td><%= sessions[i].child.name + ' ' + sessions[i].child.surname%></td>
+                        <td><%= sessions[i].date %></td>
+                        <td><%= (sessions[i].isDone)?'<a href=""><i class="fas fa-external-link-alt"></i></a>':'Still not completed.' %></td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <% include ./partials/footer.html %>
+</div>
+</body>
+
+</html>
