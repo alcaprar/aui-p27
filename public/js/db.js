@@ -26,6 +26,14 @@ var src = {
         infradito: {
             type: 'img',
             src: '#infradito'
+        },
+        footballShoes: {
+            type: 'img',
+            src: '#football-shoes'
+        },
+        cuffiaPiscina: {
+            type: 'img',
+            src: '#cuffia-piscina'
         }
     },
     places:{
@@ -40,6 +48,12 @@ var src = {
         },
         mountainSnow: {
             src: '#mountain-snow'
+        },
+        footballField: {
+            src: '#football-field'
+        },
+        swimmingPool: {
+            src: '#swimming-pool'
         }
     }
 };
